@@ -208,6 +208,9 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 
 int main(int, const char*const*)
 {
+
+
+
 #ifndef OFFLINE_EXECUTION 
 	extern void renderLoop();
 	renderLoop();

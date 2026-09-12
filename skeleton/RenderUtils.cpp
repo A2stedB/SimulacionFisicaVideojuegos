@@ -152,6 +152,12 @@ void renderLoop()
 	atexit(exitCallback);
 
 	initPhysics(true);
+
+	PxSphereGeometry circle{ 3 };
+	PxShape* circle_shape = CreateShape(circle);
+	PxTransform transform{ PxVec3{0,0,0} };
+	RenderItem* real_circle = new RenderItem(circle_shape, &transform, Vector4{ 1,0,0,1 });
+
 	glutMainLoop();
 }
 
