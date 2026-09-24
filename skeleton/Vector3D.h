@@ -12,6 +12,20 @@ public:
     Vector3D(float x,float y, float z):x{ x }, y{ y }, z{ z } {};
     Vector3D(const physx::PxVec3 pxVec3) : x{ pxVec3.x }, y{ pxVec3.y }, z{ pxVec3.z } {};
 
+    Vector3D(const Vector3D& other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+    }
+
+    Vector3D(const Vector3D&& other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+    }
+
     Vector3D operator=(const Vector3D& other)
     {
         x = other.x;
@@ -33,33 +47,36 @@ public:
     }
 
     Vector3D operator+(const Vector3D b) {
-        return Vector3D(x + b.x, y + b.y, z + b.z);
+        return Vector3D{ x + b.x, y + b.y, z + b.z };
     }
 
     Vector3D operator-(const Vector3D b) {
-        return Vector3D(x - b.x, y - b.y, z - b.z);
-    }
-
-    Vector3D operator+(const Vector3D b) {
-        return Vector3D(x + b.x, y + b.y, z + b.z);
+        return Vector3D{x - b.x, y - b.y, z - b.z};
     }
 
     Vector3D operator+=(const Vector3D b) {
-        return Vector3D(x + b.x, y + b.y, z + b.z);
+        return Vector3D{ x + b.x, y + b.y, z + b.z };
     }
 
-    float magnitude() const {
+    Vector3D operator/(const float scalar)
+    {
+        return Vector3D{ x / scalar,y / scalar,z / scalar };
+    }
+
+    float module() const 
+    {
         return std::sqrtf(x*x + y*y + z*z);
     }
 
-    Vector3D normalize() const {
-        float module = magnitude();
-        return Vector3D(x / module,y / module,z / module);
+    Vector3D normalize() const 
+    {
+        return Vector3D{x,y,z} / module();
     }
 
     operator physx::PxVec3() {
         return physx::PxVec3(x, y, z);
     }
+
 public:
     float x, y, z;
 };
@@ -72,7 +89,7 @@ float dot_product(const Vector3D a, const Vector3D b)
         a.z + b.z;
 }
 
-Vector3D cross_product(const Vector3D a, const Vector3D b) 
+Vector3D cross_product(const Vector3D& a, const Vector3D& b) 
 {
     return Vector3D{
         (a.y*b.z - a.z*b.y),

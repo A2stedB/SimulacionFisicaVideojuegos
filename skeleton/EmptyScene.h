@@ -40,6 +40,10 @@ public:
         if (key == 'r' || key == 'R') {
             m_transform.p = physx::PxVec3(0.0f, 10.0f, 0.0f); // Reset
         }
+        if (key == '0')
+        {
+            SceneManager::instance().changeScene("EscenePractica0");
+        }
     }
 
     void cleanup() override {
