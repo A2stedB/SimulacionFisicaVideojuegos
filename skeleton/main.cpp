@@ -19,6 +19,10 @@
 #include "callbacks.hpp"
 
 #include <iostream>
+// Para las escenas del curso, se incluyen los headers de las prácticas y la escena vacía
+#include "SceneManager.h"
+#include "EmptyScene.h"
+#include "P0S_Scene.h"
 
 #include <foundation/PxSimpleTypes.h>
 #include <PxPhysicsVersion.h> // <- Macros for PhysX version checking
@@ -50,7 +54,7 @@ ContactReportCallback gContactReportCallback;
 double gPhysicsTimeAccumulator = 0.0;
 const double gFixedTimestep = 1.0 / 60.0;
 
-// Initialize physics engine (Updated for PhysX 5.0)
+
 void initPhysics(bool interactive)
 {
 	PX_UNUSED(interactive);
@@ -79,7 +83,6 @@ void initPhysics(bool interactive)
 		exit(1);
 	}
 
-	// Mandatory in PhysX 5.0 to initialize extensions 
 	PxInitExtensions(*gPhysics, gPvd);
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
@@ -94,23 +97,18 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-	/*
-	if (gScene && gPvd->isConnected()) {
-		PxScenePvdClient* pvdClient = gScene->getScenePvdClient();
-		if (pvdClient) {
-			pvdClient->setScenePvdFlag(PxScenePvdFlag::eTRANSMIT_CONSTRAINTS, true);
-			pvdClient->setScenePvdFlag(PxScenePvdFlag::eTRANSMIT_CONTACTS, true);
-			pvdClient->setScenePvdFlag(PxScenePvdFlag::eTRANSMIT_SCENEQUERIES, true);
-		}
-	}
-	*/
+	// Registrar las prácticas/escenas del curso
+	SceneManager::instance().registerScene<EmptyScene>("EscenaVacia");
+	SceneManager::instance().registerScene<P0S_Scene>("EscenePractica0");
+	
+	// Cargar la escena inicial
+	SceneManager::instance().changeScene("EscenaVacia");
+	
 }
 
 
 // Function to configure what happens in each step of physics
 // interactive: true if the game is rendering, false if it offline
-// t: time passed since last call in SECONDS (PhysX 5.0 uses seconds as time unit)
-
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
@@ -133,9 +131,10 @@ void stepPhysics(bool interactive, double t)
 
 		gPhysicsTimeAccumulator -= gFixedTimestep;
 	}
+	SceneManager::instance().update(t);
 }
 
-// Function to clean data (for PhysX 5.0)
+
 // Add custom code to the begining of the function
 void cleanupPhysics(bool interactive)
 {
@@ -186,17 +185,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
-	switch(toupper(key))
-	{
-	//case 'B': break;
-	//case ' ':	break;
-	case ' ':
-	{
-		break;
-	}
-	default:
-		break;
-	}
+	SceneManager::instance().keyPress(key, camera);
 }
 
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
@@ -208,9 +197,6 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 
 int main(int, const char*const*)
 {
-
-
-
 #ifndef OFFLINE_EXECUTION 
 	extern void renderLoop();
 	renderLoop();
