@@ -26,13 +26,19 @@ public:
         z = other.z;
     }
 
-    Vector3D operator=(const Vector3D& other)
+    Vector3D& operator=(const Vector3D& other)
     {
-        return Vector3D{ other.x,other.y,other.z };
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
     }
-    Vector3D operator=(const Vector3D&& other)
+    Vector3D& operator=(const Vector3D&& other)
     {
-        return Vector3D{ other.x,other.y,other.z };
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
     }
 
     Vector3D operator*(const float scalar)
@@ -52,10 +58,11 @@ public:
         return Vector3D{ x + b.x, y + b.y, z + b.z };
     }
 
-    Vector3D operator/(const float scalar)
+    Vector3D operator/(float scalar) const
     {
         return Vector3D{ x / scalar,y / scalar,z / scalar };
     }
+
 
     float module() const 
     {
@@ -64,7 +71,7 @@ public:
 
     Vector3D normalize() const 
     {
-        return Vector3D{x,y,z} / module();
+        return *this / module();
     }
 
     operator physx::PxVec3() {

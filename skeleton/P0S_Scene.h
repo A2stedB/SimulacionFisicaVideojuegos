@@ -49,19 +49,24 @@ public:
         //    m_renderItem.push_back(new RenderItem(shape, &p_3, YELLOW));
         //}
 
+
+        // Reto C
         // A
         m_renderItem.push_back(new RenderItem(shape,&pos_A,RED));
         // B
         m_renderItem.push_back(new RenderItem(shape,&pos_B,RED));
 
-        Vector3D difference(v_B - v_A);
+        Vector3D difference = v_B - v_A;
 
-        Vector3D position;
-        double seccion{1.0/11.0};
+        Vector3D position{};
+        double seccion = 1.0 / 11.0;
+
+        lerp_positions.reserve(10);
+
         for (int i = 0; i < 10; ++i) 
         {
-            position = v_A + (difference * (i * seccion));
-            lerp_positions.push_back(PxTransform(v_A + (difference * (i * seccion))));
+            position = v_A + (difference * ((i + 1) * seccion));
+            lerp_positions.push_back(PxTransform(position));
             m_renderItem.push_back(new RenderItem(shape, &lerp_positions[i],BLUE));
         }
 
@@ -93,11 +98,11 @@ private:
     //physx::PxTransform t_z;
 
     // Reto B
-    //PxTransform origin = PxTransform(Vector3D{ 0,0,0 });
-    //PxTransform p_1 = PxTransform(Vector3D{ 2.0, 0.0, 3.0 });
-    //PxTransform p_2 = PxTransform(Vector3D{ -4.0, 0.0, 1.0 });
-    //PxTransform p_3 = PxTransform(Vector3D{ 0.0, 0.0,5.0 });
-    //PxTransform p_4 = PxTransform(Vector3D{ 3.0, 0.0, 0.0 });
+    // PxTransform origin = PxTransform(Vector3D{ 0,0,0 });
+    // PxTransform p_1 = PxTransform(Vector3D{ 2.0, 0.0, 3.0 });
+    // PxTransform p_2 = PxTransform(Vector3D{ -4.0, 0.0, 1.0 });
+    // PxTransform p_3 = PxTransform(Vector3D{ 0.0, 0.0,5.0 });
+    // PxTransform p_4 = PxTransform(Vector3D{ 3.0, 0.0, 0.0 });
     Vector3D v_A = Vector3D{ -8.0, 1.0, -8.0 };
     Vector3D v_B = Vector3D{ 8.0, 8.0, 8.0 };
     PxTransform pos_A = PxTransform(v_A);
