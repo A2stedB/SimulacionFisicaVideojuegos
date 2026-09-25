@@ -275,6 +275,7 @@
     <ClInclude Include="core.hpp" />
     <ClInclude Include="EmptyScene.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IntegrationType.h" />
     <ClInclude Include="P0S_Scene.h" />
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />

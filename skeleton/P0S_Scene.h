@@ -33,22 +33,37 @@ public:
         //m_renderItem.push_back(new RenderItem(shape, &t_y, GREEN));
         //m_renderItem.push_back(new RenderItem(shape, &t_z, BLUE));
 
-        float dot = dot_product(origin.p,p_1.p);
-        if (dot > 0)
-        {
-            m_renderItem.push_back(new RenderItem(shape, &p_1, GREEN));
-        }
-        dot = dot_product(origin.p,p_2.p);
-        if (dot < 0)
-        {
-            m_renderItem.push_back(new RenderItem(shape, &p_2, RED));
-        }
-        dot = dot_product(origin.p, p_3.p);
-        if (dot == 0)
-        {
-            m_renderItem.push_back(new RenderItem(shape, &p_3, YELLOW));
-        }
+        //float dot = dot_product(origin.p,p_1.p);
+        //if (dot > 0)
+        //{
+        //    m_renderItem.push_back(new RenderItem(shape, &p_1, GREEN));
+        //}
+        //dot = dot_product(origin.p,p_2.p);
+        //if (dot < 0)
+        //{
+        //    m_renderItem.push_back(new RenderItem(shape, &p_2, RED));
+        //}
+        //dot = dot_product(origin.p, p_3.p);
+        //if (dot == 0)
+        //{
+        //    m_renderItem.push_back(new RenderItem(shape, &p_3, YELLOW));
+        //}
 
+        // A
+        m_renderItem.push_back(new RenderItem(shape,&pos_A,RED));
+        // B
+        m_renderItem.push_back(new RenderItem(shape,&pos_B,RED));
+
+        Vector3D difference(v_B - v_A);
+
+        Vector3D position;
+        double seccion{1.0/11.0};
+        for (int i = 0; i < 10; ++i) 
+        {
+            position = v_A + (difference * (i * seccion));
+            lerp_positions.push_back(PxTransform(v_A + (difference * (i * seccion))));
+            m_renderItem.push_back(new RenderItem(shape, &lerp_positions[i],BLUE));
+        }
 
     };
     void update(double dt) override {
@@ -69,16 +84,25 @@ public:
             }
     }
 private:
+    physx::PxTransform m_transform;
+
     //Vector3D u{ 3.0f,1.0f,0.0f }, v{ 0.0f,4.0f,0.0f };
     //Vector3D w = cross_product(u,v);
-    physx::PxTransform m_transform;
     //physx::PxTransform t_x;
     //physx::PxTransform t_y;
     //physx::PxTransform t_z;
-    PxTransform origin = PxTransform(Vector3D{ 0,0,0 });
-    PxTransform p_1 = PxTransform(Vector3D{ 2.0, 0.0, 3.0 });
-    PxTransform p_2 = PxTransform(Vector3D{ -4.0, 0.0, 1.0 });
-    PxTransform p_3 = PxTransform(Vector3D{ 0.0, 0.0,5.0 });
-    PxTransform p_4 = PxTransform(Vector3D{ 3.0, 0.0, 0.0 });
+
+    // Reto B
+    //PxTransform origin = PxTransform(Vector3D{ 0,0,0 });
+    //PxTransform p_1 = PxTransform(Vector3D{ 2.0, 0.0, 3.0 });
+    //PxTransform p_2 = PxTransform(Vector3D{ -4.0, 0.0, 1.0 });
+    //PxTransform p_3 = PxTransform(Vector3D{ 0.0, 0.0,5.0 });
+    //PxTransform p_4 = PxTransform(Vector3D{ 3.0, 0.0, 0.0 });
+    Vector3D v_A = Vector3D{ -8.0, 1.0, -8.0 };
+    Vector3D v_B = Vector3D{ 8.0, 8.0, 8.0 };
+    PxTransform pos_A = PxTransform(v_A);
+    PxTransform pos_B = PxTransform(v_B);
+
+    std::vector<PxTransform> lerp_positions;
     std::vector<RenderItem*> m_renderItem;
 };

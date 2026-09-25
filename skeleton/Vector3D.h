@@ -28,22 +28,16 @@ public:
 
     Vector3D operator=(const Vector3D& other)
     {
-        x = other.x;
-        y = other.y;
-        z = other.z;
+        return Vector3D{ other.x,other.y,other.z };
     }
     Vector3D operator=(const Vector3D&& other)
     {
-        x = other.x;
-        y = other.y;
-        z = other.z;
+        return Vector3D{ other.x,other.y,other.z };
     }
 
-    Vector3D operator*(const int scalar)
+    Vector3D operator*(const float scalar)
     {
-        x *= scalar;
-        y *= scalar;
-        z *= scalar;
+        return Vector3D{ x*scalar,y*scalar,z*scalar };
     }
 
     Vector3D operator+(const Vector3D b) {
@@ -74,7 +68,7 @@ public:
     }
 
     operator physx::PxVec3() {
-        return physx::PxVec3(x, y, z);
+        return physx::PxVec3{x, y, z};
     }
 
 public:
