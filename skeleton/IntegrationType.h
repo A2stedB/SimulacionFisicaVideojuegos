@@ -2,7 +2,7 @@
 
 enum class IntegrationType
 {
-	EULER = 1,
-	EULER_SEMIIMPLICITO,
-	VERLET
+	Euler= 1,
+	Symplectic_Euler,
+	Verlet
 };

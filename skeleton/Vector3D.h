@@ -5,8 +5,6 @@
 class Vector3D
 {
 public:
-    Vector3D normalize();
-    float module();
 
     Vector3D() : x{ 0 }, y{ 0 }, z{ 0 } {};
     Vector3D(float x,float y, float z):x{ x }, y{ y }, z{ z } {};
@@ -82,20 +80,25 @@ public:
     float x, y, z;
 };
 
-float dot_product(const Vector3D a, const Vector3D b)
+inline Vector3D operator*(const float scalar, Vector3D vec)
 {
-    return 
+    return Vector3D{ vec.x * scalar,vec.y * scalar,vec.z * scalar };
+};
+
+inline float dot_product(const Vector3D& a, const Vector3D& b)
+{
+    return
         a.x + b.x +
         a.y + b.y +
         a.z + b.z;
-}
+};
 
-Vector3D cross_product(const Vector3D& a, const Vector3D& b) 
+inline Vector3D cross_product(const Vector3D& a, const Vector3D& b)
 {
     return Vector3D{
-        (a.y*b.z - a.z*b.y),
-        (a.x*b.z - a.z*b.x),
-        (a.x*b.y - a.y*b.x)
+        (a.y * b.z - a.z * b.y),
+        (a.x * b.z - a.z * b.x),
+        (a.x * b.y - a.y * b.x)
     };
-}
+};
 
