@@ -8,6 +8,16 @@ Particle::Particle()
 
 }
 
+Particle::Particle(physx::PxTransform transform)
+{
+	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+	this->velocity = velocity;
+	this->acceleration = acceleration;
+	this->transform = transform;
+
+	this->renderItem = new RenderItem(shape, &this->transform, YELLOW);
+}
+
 Particle::Particle(Vector3D velocity, Vector3D position,Vector3D acceleration)
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
@@ -16,6 +26,17 @@ Particle::Particle(Vector3D velocity, Vector3D position,Vector3D acceleration)
 	this->transform = physx::PxTransform(position);
 
 	this->renderItem = new RenderItem(shape,&this->transform,YELLOW);
+}
+
+Particle::Particle(Vector3D velocity, Vector3D position, Vector3D acceleration, float mass) 
+{
+	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+	this->velocity = velocity;
+	this->acceleration = acceleration;
+	this->transform = physx::PxTransform(position);
+	this->mass = mass;
+
+	this->renderItem = new RenderItem(shape, &this->transform, BLUE);
 }
 
 Particle::~Particle()
@@ -41,19 +62,26 @@ void Particle::integrate(double t, IntegrationType integrationType)
 	}
 }
 
+// t sera el tiempo de paso de fisica, constante
 void Particle::explicit_euler_integration(double t)
 {
 	transform.p = transform.p + (velocity * FixedTimestep);
 	velocity = velocity + acceleration * FixedTimestep;
+
+	// No actua tanto a nivel conceptual de la fisica, sino que sirve para mantener el integrador funcionando matematicamente constante
+	// El integrador produce error, ya sea positivo o negativo, pero la cosa es que ese error va acumulando
+	velocity = velocity * std::pow(DAMPING_FACTOR, t);
 }
 
 void Particle::sympletic_euler_integration(double t)
 {
 	velocity = velocity + acceleration * FixedTimestep;
 	transform.p = transform.p + (velocity * FixedTimestep);
+
+	velocity = velocity * std::pow(DAMPING_FACTOR, t);
 }
 
 void Particle::verlet_integration(double t)
 {
-
+	// TODO
 }
