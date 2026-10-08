@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <foundation/PxVec3.h>
+#include <iostream>
 #include <cmath>
 
 class Vector3D
@@ -76,6 +77,8 @@ public:
         return physx::PxVec3{x, y, z};
     }
 
+
+
 public:
     float x, y, z;
 };
@@ -101,4 +104,10 @@ inline Vector3D cross_product(const Vector3D& a, const Vector3D& b)
         (a.x * b.y - a.y * b.x)
     };
 };
+
+inline std::ostream& operator<<(std::ostream& out, const Vector3D vec)
+{
+    out << "(x: " << vec.x << " , y: " << vec.y << " , z: " << vec.z << ")\n";
+    return out;
+}
 

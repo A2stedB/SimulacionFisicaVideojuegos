@@ -16,8 +16,8 @@ private:
 
 private:
 	float simulation_mass{};
-	Vector3D simulation_velocity{};
+	Vector3D real_velocity{};
 
-	float simulation_gravity{};
+	Vector3D simulation_gravity{};
 };
 

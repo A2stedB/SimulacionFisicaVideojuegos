@@ -1,6 +1,7 @@
 ﻿#include "Particle.h"
 #include "Config.h"
 #include "Helper.h"
+#include <iostream>
 #include <cmath>
 
 Particle::Particle()
@@ -67,6 +68,8 @@ void Particle::explicit_euler_integration(double t)
 {
 	transform.p = transform.p + (velocity * FixedTimestep);
 	velocity = velocity + acceleration * FixedTimestep;
+
+	//std::cout << velocity << std::endl;
 
 	// No actua tanto a nivel conceptual de la fisica, sino que sirve para mantener el integrador funcionando matematicamente constante
 	// El integrador produce error, ya sea positivo o negativo, pero la cosa es que ese error va acumulando
