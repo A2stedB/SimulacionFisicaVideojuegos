@@ -77,7 +77,7 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <AdditionalOptions>/MP /Wall /wd4514 /wd4820 /wd4127 /wd4710 /wd4711 /wd4435 /wd4577 /wd4464 /wd4350 /wd4668 /wd4365 /wd4548 /d2Zi+ /p:VcpkgConfiguration=Debug</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(PHYSXPATH)/PxShared/include;$(PHYSXPATH)/PxShared/src/foundation/include;$(PHYSXPATH)/PxShared/src/fastxml/include;../common/Graphics/include/win32/GL;../common/PhysX-3.4/PhysX_3.4/Include;../common/PhysX-3.4/PxShared/include;../common/PhysX-3.4/PxShared/src/foundation/include;../common/PhysX-3.4/PxShared/src/fastxml/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PHYSXPATH)/PxShared/include;$(PHYSXPATH)/PxShared/src/foundation/include;$(PHYSXPATH)/PxShared/src/fastxml/include;../common/Graphics/include/win32/GL;../common/PhysX-3.4/PhysX_3.4/Include;../common/PhysX-3.4/PxShared/include;../common/PhysX-3.4/PxShared/src/foundation/include;../common/PhysX-3.4/PxShared/src/fastxml/include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_HAS_EXCEPTIONS=0;WIN32;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_WINSOCK_DEPRECATED_NO_WARNINGS;PHYSX_PROFILE_SDK;RENDER_SNIPPET;_DEBUG;_DEBUG;PX_DEBUG=1;PX_CHECKED=1;PX_NVTX=1;PX_SUPPORT_PVD=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>false</ExceptionHandling>
       <WarningLevel>Level4</WarningLevel>
@@ -263,8 +263,9 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="P1_Scene.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleGenerator.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Proyectile.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
@@ -276,11 +277,14 @@
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="core.hpp" />
-    <ClInclude Include="EmptyScene.h" />
+    <ClInclude Include="Distribution.h" />
+    <ClInclude Include="ParticleGenerator.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="Scene\EmptyScene.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IntegrationType.h" />
-    <ClInclude Include="P0S_Scene.h" />
-    <ClInclude Include="P1_Scene.h" />
+    <ClInclude Include="Scene\P0S_Scene.h" />
+    <ClInclude Include="Scene\P1_Scene.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Proyectile.h" />
     <ClInclude Include="RenderUtils.hpp" />
@@ -288,6 +292,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene\P2_Scene.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>

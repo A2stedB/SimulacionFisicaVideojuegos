@@ -39,6 +39,7 @@ Proyectile::~Proyectile()
 {
 }
 
+
 void Proyectile::modify_real_mass(float value)
 {
 	mass += value;
@@ -47,6 +48,23 @@ void Proyectile::modify_real_mass(float value)
 	std::cout << "Current simulation mass: " << simulation_mass << "\n";
 
 	//recalculate_simulation_gravity(); // Innecesario esto
+}
+
+void Proyectile::modify_real_velocity(float value)
+{
+	std::cout << "Current real velocity: " << real_velocity << "\n";
+	//float factor = real_velocity.module();
+	//factor += value;
+	//std::cout << "Factor: " << factor << std::endl;
+	real_velocity.x += value;
+	real_velocity.y += value;
+	real_velocity.z += value;
+
+	//real_velocity.x += value;
+
+	recalculate_simulation_mass();
+	recalculate_simulation_gravity();
+	std::cout << "Current simulation velocity: " << velocity << "\n";
 }
 
 void Proyectile::recalculate_simulation_mass()

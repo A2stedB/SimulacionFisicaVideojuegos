@@ -13,6 +13,8 @@ public:
 	Particle(Vector3D velocity, Vector3D position, Vector3D acceleration = Vector3D{ 0,0,0 }, float mass = 0);
 	~Particle();
 
+	Particle(const Particle& other);
+
 public:
 	void integrate(double t, IntegrationType integrationType);
 
@@ -21,7 +23,7 @@ protected:
 	void sympletic_euler_integration(double t);
 	void verlet_integration(double t);
 
-protected:
+public:
 	Vector3D velocity{};
 	physx::PxTransform transform{};
 	Vector3D acceleration{};

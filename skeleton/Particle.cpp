@@ -45,6 +45,14 @@ Particle::~Particle()
 	delete renderItem;
 }
 
+Particle::Particle(const Particle& other)
+	: velocity(other.velocity), transform(other.transform), acceleration(other.acceleration),mass{ other.mass }
+{
+	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+
+	this->renderItem = new RenderItem(shape, &this->transform, RED);
+}
+
 void Particle::integrate(double t, IntegrationType integrationType)
 {
 	switch (integrationType)

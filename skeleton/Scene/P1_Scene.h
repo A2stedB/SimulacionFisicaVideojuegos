@@ -46,10 +46,10 @@ public:
     {
         switch (key) {
             case '+':
-                proyectile1->modify_real_mass(5);
+                proyectile1->modify_real_velocity(5);
                 break;
             case '-':
-                proyectile1->modify_real_mass(-5);
+                proyectile1->modify_real_velocity(-5);
                 break;
             case ' ':
                 m_Particles.push_back(new Proyectile(GetCamera(), 100_m_s, -9.8_m_s, 100_g, 25_m_s));
@@ -73,6 +73,9 @@ public:
         delete par;
         delete proyectile1;
     }
+
+private:
+
 private:
     Particle* par{};
     Proyectile* proyectile1{};

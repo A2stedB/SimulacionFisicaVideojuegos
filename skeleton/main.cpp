@@ -21,9 +21,10 @@
 #include <iostream>
 // Para las escenas del curso, se incluyen los headers de las prácticas y la escena vacía
 #include "SceneManager.h"
-#include "EmptyScene.h"
-#include "P0S_Scene.h"
-#include "P1_Scene.h"
+#include "Scene/EmptyScene.h"
+#include "Scene/P0S_Scene.h"
+#include "Scene/P1_Scene.h"
+#include "Scene/P2_Scene.h"
 
 #include <foundation/PxSimpleTypes.h>
 #include <PxPhysicsVersion.h> // <- Macros for PhysX version checking
@@ -102,9 +103,10 @@ void initPhysics(bool interactive)
 	SceneManager::instance().registerScene<EmptyScene>("EscenaVacia");
 	SceneManager::instance().registerScene<P0S_Scene>("EscenePractica0");
 	SceneManager::instance().registerScene<P1_Scene>("EscenaPractica1");
+	SceneManager::instance().registerScene<P2_Scene>("EscenaPractica2");
 	
 	// Cargar la escena inicial
-	SceneManager::instance().changeScene("EscenaPractica1");
+	SceneManager::instance().changeScene("EscenaPractica2");
 	
 }
 

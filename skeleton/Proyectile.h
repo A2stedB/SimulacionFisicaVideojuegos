@@ -10,6 +10,7 @@ public:
 	~Proyectile();
 
 	void modify_real_mass(float value); // no hace set
+	void modify_real_velocity(float value);
 private:
 	void recalculate_simulation_mass();
 	void recalculate_simulation_gravity();
