@@ -17,16 +17,15 @@ class ParticleGenerator
 public:
 	ParticleGenerator() = default;
 	ParticleGenerator(Vector3D position, ParticleModel model);
-	ParticleGenerator(Distribution dist) : distribution{dist}{};
 	~ParticleGenerator() = default;
 
 public:
 	void update(ParticleSystem* system,float dt);
 public:
 	ParticleModel model{};
-	Distribution distribution{};
+	//Distribution distribution{};
 	Vector3D position{};
-	const int max{200};
+	const int max{10000};
 	int count{ 0 };
 };
 

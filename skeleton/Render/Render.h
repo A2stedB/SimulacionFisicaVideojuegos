@@ -1,4 +1,4 @@
-// This code contains NVIDIA Confidential Information and is disclosed to you
+﻿// This code contains NVIDIA Confidential Information and is disclosed to you
 // under a form of NVIDIA software license agreement provided separately to you.
 //
 // Notice
@@ -63,6 +63,6 @@ void finishRender();
 void drawText(const std::string& text, int x, int y);
 }
 
-#define MAX_NUM_ACTOR_SHAPES 128
+#define MAX_NUM_ACTOR_SHAPES 10000
 
 #endif //PHYSX_SNIPPET_RENDER_H
