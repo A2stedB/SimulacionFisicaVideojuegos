@@ -4,9 +4,11 @@
 
 const int OFFSET = 10;
 
-ParticleGenerator::ParticleGenerator(Vector3D position, ParticleModel model)
-	: model(model), position(position)
+ParticleGenerator::ParticleGenerator(Vector3D position, ParticleModel* particle_model)
+	:position(position)
 {
+	model.velocity = particle_model->velocity;
+	model.color = particle_model->color;
 }
 
 void ParticleGenerator::update(ParticleSystem* system,float dt) 

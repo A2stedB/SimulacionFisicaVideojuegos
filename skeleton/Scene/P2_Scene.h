@@ -10,12 +10,12 @@ public:
 
     void init() override
     {
-        //Particle particle = Particle(Vector3D{ 10.0,0.0,0.0 }, Vector3D{ 1.0,0.0,0.0 }, Vector3D{ 0,-3,0 },0.001);
+        //ParticleModel particle = Particle(Vector3D{ 10.0,0.0,0.0 }, Vector3D{ 1.0,0.0,0.0 }, Vector3D{ 0,-3,0 },0.001);
 
         ParticleModel model{ Vector3D{20,0,0},RED };
-        ParticleGenerator* generator = new ParticleGenerator(Vector3D{0,20,0},model);
-        particleSystem.generator = generator;
-		
+        ParticleGenerator* generator = new ParticleGenerator(Vector3D{0,20,0},&model);
+
+        particleSystem.addGenerator(generator);
     }
 
     void update(double dt) override 

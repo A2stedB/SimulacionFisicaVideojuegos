@@ -14,6 +14,7 @@ public:
 	void update(float dt);
 public:
 	std::vector<Particle*> particles;
-	ParticleGenerator* generator;
+	std::vector<ParticleGenerator*> generators;
+	//ParticleGenerator* generator;
 };
 

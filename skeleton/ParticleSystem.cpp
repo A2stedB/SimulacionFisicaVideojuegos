@@ -5,12 +5,16 @@
 #include "ParticleGenerator.h"
 void ParticleSystem::addGenerator(ParticleGenerator* generator)
 {
-	
+	generators.push_back(generator);
 }
 
 void ParticleSystem::update(float dt)
 {
-	generator->update(this,dt);
+	for (ParticleGenerator* generator : generators)
+	{
+		generator->update(this, dt);
+	};
+
 	for (Particle* particle : particles) {
 		particle->integrate(FixedTimestep,IntegrationType::Symplectic_Euler);
 	}

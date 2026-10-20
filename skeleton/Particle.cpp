@@ -4,11 +4,6 @@
 #include <iostream>
 #include <cmath>
 
-Particle::Particle()
-{
-
-}
-
 Particle::Particle(physx::PxTransform transform)
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
