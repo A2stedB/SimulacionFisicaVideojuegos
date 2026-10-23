@@ -3,6 +3,7 @@
 #include "IntegrationType.h"
 #include "Config.h"
 #include "ParticleGenerator.h"
+
 void ParticleSystem::addGenerator(ParticleGenerator* generator)
 {
 	generators.push_back(generator);
@@ -15,7 +16,8 @@ void ParticleSystem::update(float dt)
 		generator->update(this, dt);
 	};
 
-	for (Particle* particle : particles) {
-		particle->integrate(FixedTimestep,IntegrationType::Symplectic_Euler);
+	for (Particle* particle : particles) 
+	{
+		particle->integrate(dt,IntegrationType::Symplectic_Euler);
 	}
 }

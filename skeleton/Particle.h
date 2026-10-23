@@ -8,6 +8,7 @@ struct ParticleModel
 {
 	Vector3D velocity{};
 	physx::PxVec4 color{};
+	float acceleration{};
 };
 
 class Particle
@@ -37,4 +38,10 @@ public:
 	RenderItem* renderItem{};
 	float mass{};
 };
+
+//template<typename T>
+//class Particle2{};
+//
+//template<>
+//class Particle2<Projectile>
 

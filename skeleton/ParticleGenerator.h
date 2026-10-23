@@ -13,14 +13,19 @@ class ParticleGenerator
 public:
 	ParticleGenerator() = default;
 	ParticleGenerator(Vector3D position, ParticleModel* particle_model);
+	//ParticleGenerator(Vector3D position, ParticleModel* particle_model);
 	~ParticleGenerator() = default;
 
 public:
 	void update(ParticleSystem* system,float dt);
+	void setMax(int new_max);
 public:
+	float (*updateTime)(ParticleGenerator*);
+	void (*generate_particle)(Vector3D*,Vector3D*);
+	float current_tick{ 0 };
 	ParticleModel model{};
 	Vector3D position{};
-	const int max{10000};
+	int max{10000};
 	int count{ 0 };
 };
 

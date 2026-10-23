@@ -16,10 +16,11 @@ namespace distribution
 	//Generator default_generator{rd()};
 	//std::uniform_real_distribution<double> dis_uniform;
 	//std::normal_distribution<double> dis_normal;
+	inline std::random_device rd = std::random_device();
 
 	inline double uniform(double a, double b, Generator generator = Generator()) 
 	{
-		std::random_device rd;
+		//std::random_device rd;
 		generator.seed(rd());
 		std::uniform_real_distribution<double> dis_uniform(a,b);
 		return dis_uniform(generator);
@@ -28,7 +29,7 @@ namespace distribution
 
 	inline double normal(double mean, double stddev, Generator generator = Generator())
 	{
-		std::random_device rd;
+		//std::random_device rd;
 		generator.seed(rd());
 		std::normal_distribution<double> dis_normal(mean,stddev);
 		return dis_normal(generator);

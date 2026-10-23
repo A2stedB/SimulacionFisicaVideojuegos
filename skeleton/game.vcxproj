@@ -87,6 +87,7 @@
       </PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(TargetDir)\$(TargetName).pdb</ProgramDataBaseFileName>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalOptions>
@@ -262,6 +263,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleGenerator.cpp" />
@@ -278,6 +280,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="Distribution.h" />
+    <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ParticleGenerator.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Scene\EmptyScene.h" />
@@ -293,6 +296,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene\P2_Scene.h" />
+    <ClInclude Include="Scene\P3_Scene.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
