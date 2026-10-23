@@ -14,22 +14,22 @@ Particle::Particle(physx::PxTransform transform)
 	this->renderItem = new RenderItem(shape, &this->transform, YELLOW);
 }
 
-Particle::Particle(Vector3D velocity, Vector3D position,Vector3D acceleration)
+Particle::Particle(Velocity velocity, Position position,Acceleration acceleration)
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;
 	this->acceleration = acceleration;
-	this->transform = physx::PxTransform(position);
+	this->transform = physx::PxTransform((Vector3D)position);
 
 	this->renderItem = new RenderItem(shape,&this->transform,YELLOW);
 }
 
-Particle::Particle(Vector3D velocity, Vector3D position, Vector3D acceleration, float mass) 
+Particle::Particle(Velocity velocity, Position position, Acceleration acceleration, float mass)
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;
 	this->acceleration = acceleration;
-	this->transform = physx::PxTransform(position);
+	this->transform = physx::PxTransform((Vector3D)position);
 	this->mass = mass;
 
 	this->renderItem = new RenderItem(shape, &this->transform, BLUE);
@@ -70,7 +70,7 @@ void Particle::integrate(double t, IntegrationType integrationType)
 void Particle::explicit_euler_integration(double t)
 {
 	transform.p = transform.p + (velocity * FixedTimestep);
-	velocity = velocity + acceleration * FixedTimestep;
+	velocity = velocity + (acceleration * FixedTimestep);
 
 	//std::cout << velocity << std::endl;
 
@@ -82,7 +82,7 @@ void Particle::explicit_euler_integration(double t)
 void Particle::sympletic_euler_integration(double t)
 {
 	velocity = velocity + acceleration * FixedTimestep;
-	transform.p = transform.p + (velocity * FixedTimestep);
+	transform.p = transform.p + (Vector3D)(velocity * FixedTimestep);
 
 	velocity = velocity * std::pow(DAMPING_FACTOR, t);
 }
@@ -90,4 +90,6 @@ void Particle::sympletic_euler_integration(double t)
 void Particle::verlet_integration(double t)
 {
 	// TODO
+	//algo(this->acceleration);
 }
+

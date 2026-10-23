@@ -8,14 +8,14 @@ Proyectile::Proyectile()
 {
 }
 
-Proyectile::Proyectile(Camera* camera, float velocity, float acceleration, float mass, float objective_velocity):
+Proyectile::Proyectile(Camera* camera, float velocity, ms_t acceleration, float mass, float objective_velocity):
 	Particle(physx::PxTransform(camera->getEye()))
 {
 	this->transform = physx::PxTransform(camera->getEye());
-	this->velocity = objective_velocity * camera->getDir();
-	this->acceleration = Vector3D(0.0f, acceleration, 0.0f);
+	this->velocity = (Velocity)(objective_velocity * camera->getDir());
+	this->acceleration = Acceleration(0.0f, acceleration.value, 0.0f);
 	this->mass = mass;
-	this->real_velocity = velocity * camera->getDir();
+	this->real_velocity = (Velocity)(velocity * camera->getDir());
 	recalculate_simulation_gravity();
 	recalculate_simulation_mass();
 
@@ -23,7 +23,7 @@ Proyectile::Proyectile(Camera* camera, float velocity, float acceleration, float
 	std::cout << "Masa simulada: " << simulation_mass << std::endl;
 }
 
-Proyectile::Proyectile(Vector3D velocity, Vector3D position, Vector3D acceleration, float mass, Vector3D objective_velocity):
+Proyectile::Proyectile(Velocity velocity, Position position, Acceleration acceleration, float mass, Velocity objective_velocity):
 	Particle(velocity,position,acceleration,mass)
 {
 	this->real_velocity = velocity;

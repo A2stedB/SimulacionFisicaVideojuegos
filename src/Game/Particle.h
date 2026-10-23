@@ -6,9 +6,9 @@
 
 struct ParticleModel
 {
-	Vector3D velocity{};
+	Velocity velocity{};
 	physx::PxVec4 color{};
-	float acceleration{};
+	Acceleration acceleration{};
 };
 
 class Particle
@@ -16,8 +16,8 @@ class Particle
 public:
 	Particle() = default;
 	Particle(physx::PxTransform transform);
-	Particle(Vector3D velocity,Vector3D position,Vector3D acceleration = Vector3D{0,0,0});
-	Particle(Vector3D velocity, Vector3D position, Vector3D acceleration = Vector3D{ 0,0,0 }, float mass = 0);
+	Particle(Velocity velocity, Position position, Acceleration acceleration = Acceleration{0,0,0});
+	Particle(Velocity velocity, Position position, Acceleration acceleration = Acceleration{ 0,0,0 }, float mass = 0);
 	//Particle(Vector3D velocity, float gravity, Vector4 colour);
 	~Particle();
 
@@ -32,16 +32,10 @@ protected:
 	void verlet_integration(double t);
 
 public:
-	Vector3D velocity{};
+	Velocity velocity{};
 	physx::PxTransform transform{};
-	Vector3D acceleration{};
+	Acceleration acceleration{};
 	RenderItem* renderItem{};
 	float mass{};
 };
-
-//template<typename T>
-//class Particle2{};
-//
-//template<>
-//class Particle2<Projectile>
 

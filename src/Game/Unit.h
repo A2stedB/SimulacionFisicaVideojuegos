@@ -17,3 +17,13 @@ float operator "" _m_s(unsigned long long quantity) {
 float operator "" _m_s(long double quantity) {
 	return quantity;
 }
+
+struct ms_t
+{
+	float value;
+};
+
+struct kg_t
+{
+	float value;
+};

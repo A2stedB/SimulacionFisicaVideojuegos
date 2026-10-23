@@ -53,8 +53,10 @@ public:
         return Vector3D{x - b.x, y - b.y, z - b.z};
     }
 
-    Vector3D operator+=(const Vector3D b) {
-        return Vector3D{ x + b.x, y + b.y, z + b.z };
+    Vector3D& operator+=(const Vector3D b)
+    {
+        x += b.x; y += b.y; z += b.z;
+        return *this;
     }
 
     Vector3D operator/(float scalar) const
@@ -73,7 +75,8 @@ public:
         return *this / module();
     }
 
-    operator physx::PxVec3() {
+    operator physx::PxVec3() 
+    {
         return physx::PxVec3{x, y, z};
     }
 
@@ -111,3 +114,78 @@ inline std::ostream& operator<<(std::ostream& out, const Vector3D vec)
     return out;
 }
 
+
+struct Tag_Position {};
+struct Tag_Velocity {};
+struct Tag_Acceleration {};
+
+//using Position = Vector<3, Tag_Position>;
+
+#define INHERITANCE_MODE public
+
+struct Position : INHERITANCE_MODE Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    Position& operator=(const Vector3D& other) = delete;
+};
+
+//using Velocity = Vector<3, Tag_Velocity>;
+
+struct Velocity : INHERITANCE_MODE Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+
+    Velocity& operator=(const Vector3D& other) = delete;
+};
+
+//using Acceleration = Vector<3, Tag_Acceleration>;
+
+struct Acceleration : INHERITANCE_MODE Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    Acceleration& operator=(const Vector3D& other) = delete;
+};
+
+Position operator+(const Position& lhs, const Position& rhs) = delete;
+Velocity operator+(const Velocity& lhs, const Acceleration& rhs) = delete;
+
+//inline Velocity operator+(const Velocity& lhs,const Acceleration& rhs)
+//{
+//    return Velocity{ lhs.x + rhs.x,lhs.y + rhs.y,lhs.z + rhs.z };
+//}
+//
+//inline Velocity operator+(const Acceleration& lhs, const Velocity& rhs)
+//{
+//    return Velocity{ lhs.x + rhs.x,lhs.y + rhs.y,lhs.z + rhs.z };
+//}
+
+//struct Position : public Vector<3, Tag_Position> 
+//{
+//    using Vector<3, Tag_Position>::VectorBase;
+//};
+//struct Velocity : public Vector<3, Tag_Velocity> 
+//{
+//
+//};
+//struct Acceleration : public Vector<3, Tag_Acceleration> 
+//{
+//    using Vector<3, Tag_Acceleration>::VectorBase;
+//};
+
+//struct Position : public VectorBase<3>
+//{
+//
+//};
+//
+//struct Velocity : public VectorBase<3>
+//{
+//
+//};
+//
+//struct Acceleration : public VectorBase<3>
+//{
+//
+//};

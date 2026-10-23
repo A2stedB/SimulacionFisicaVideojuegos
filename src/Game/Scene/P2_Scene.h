@@ -12,10 +12,10 @@ public:
     {
         //ParticleModel particle = Particle(Vector3D{ 10.0,0.0,0.0 }, Vector3D{ 1.0,0.0,0.0 }, Vector3D{ 0,-3,0 },0.001);
 
-        ParticleModel model{ Vector3D{20,0,0},RED,-10};
+        ParticleModel model{ Velocity{20,0,0},RED,Acceleration{0,-10,0}};
         
         ParticleGenerator* generator = new ParticleGenerator(Vector3D{0,20,0},&model);
-        generator->generate_particle = [](Vector3D* position, Vector3D* velocity)
+        generator->generate_particle = [](Position* position, Velocity* velocity)
             {
                 int OFFSET = 20;
                 velocity->x = distribution::uniform(velocity->x - OFFSET, velocity->x + OFFSET);
@@ -28,10 +28,10 @@ public:
             };
 
         //particleSystem.addGenerator(generator);
-        ParticleModel model2{ Vector3D{0,-10,0},YELLOW,-10};
+        ParticleModel model2{ Velocity{0,-10,0},YELLOW,Acceleration{0,-10,0} };
 
         ParticleGenerator* generator2 = new ParticleGenerator(Vector3D{ 20,20,-10 }, &model2);
-        generator2->generate_particle = [](Vector3D* position, Vector3D* velocity)
+        generator2->generate_particle = [](Position* position, Velocity* velocity)
             {
                 position->x = distribution::normal(position->x-50,position->x+50);
                 //position->y = distribution::normal(position->y,20);
@@ -42,10 +42,10 @@ public:
 
         //particleSystem.addGenerator(generator2);
 
-        ParticleModel model3{Vector3D{0,20,0},BLUE,-10};
+        ParticleModel model3{ Velocity{0,20,0},BLUE,Acceleration{0,-10,0}};
         ParticleGenerator* generator3 = new ParticleGenerator(Vector3D{ 50,50,-20 }, &model3);
 
-        generator3->generate_particle = [](Vector3D* position, Vector3D* velocity)
+        generator3->generate_particle = [](Position* position, Velocity* velocity)
             {
                 velocity->x = distribution::uniform(-10, 10);
             };

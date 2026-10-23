@@ -16,7 +16,7 @@ public:
         //par = new Particle(Vector3D{10.0,0.0,0.0},Vector3D{1.0,0.0,0.0},Vector3D{0,-3,0});
         Camera* camera = GetCamera();
         //proyectile1 = new Proyectile(camera,500_m_s,-9.8_m_s,5_g,25_m_s);
-        proyectile1 = new Proyectile(camera,100_m_s,-9.8_m_s,100_g,25_m_s);
+        proyectile1 = new Proyectile(camera, 100_m_s, ms_t{-9.8}, 100_g, 25_m_s);
 
         
         //physx::PxTransform(physx::PxVec3(0.0f, 0.0f, 0.0f));

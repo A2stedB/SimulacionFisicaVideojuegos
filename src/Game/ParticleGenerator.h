@@ -21,10 +21,10 @@ public:
 	void setMax(int new_max);
 public:
 	float (*updateTime)(ParticleGenerator*);
-	void (*generate_particle)(Vector3D*,Vector3D*);
+	void (*generate_particle)(Position* position,Velocity* velocity);
 	float current_tick{ 0 };
 	ParticleModel model{};
-	Vector3D position{};
+	Position position{};
 	int max{10000};
 	int count{ 0 };
 };

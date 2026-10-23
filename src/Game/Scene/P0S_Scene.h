@@ -105,8 +105,8 @@ private:
     // PxTransform p_4 = PxTransform(Vector3D{ 3.0, 0.0, 0.0 });
     Vector3D v_A = Vector3D{ -8.0, 1.0, -8.0 };
     Vector3D v_B = Vector3D{ 8.0, 8.0, 8.0 };
-    PxTransform pos_A = PxTransform(v_A);
-    PxTransform pos_B = PxTransform(v_B);
+    PxTransform pos_A = PxTransform((Vector3D)v_A);
+    PxTransform pos_B = PxTransform((Vector3D)v_B);
 
     std::vector<PxTransform> lerp_positions;
     std::vector<RenderItem*> m_renderItem;
