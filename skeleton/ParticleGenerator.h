@@ -24,7 +24,7 @@ public:
 	void (*generate_particle)(Vector3D*,Vector3D*);
 	float current_tick{ 0 };
 	ParticleModel model{};
-	Vector3D position{};
+	Position position{};
 	int max{10000};
 	int count{ 0 };
 };

@@ -14,7 +14,7 @@ Particle::Particle(physx::PxTransform transform)
 	this->renderItem = new RenderItem(shape, &this->transform, YELLOW);
 }
 
-Particle::Particle(Vector3D velocity, Vector3D position,Vector3D acceleration)
+Particle::Particle(Velocity velocity, Position position,Acceleration acceleration)
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;
@@ -24,7 +24,7 @@ Particle::Particle(Vector3D velocity, Vector3D position,Vector3D acceleration)
 	this->renderItem = new RenderItem(shape,&this->transform,YELLOW);
 }
 
-Particle::Particle(Vector3D velocity, Vector3D position, Vector3D acceleration, float mass) 
+Particle::Particle(Velocity velocity, Position position, Acceleration acceleration, float mass) 
 {
 	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;

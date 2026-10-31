@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-class Vector3D
+struct Vector3D
 {
 public:
 
@@ -111,3 +111,51 @@ inline std::ostream& operator<<(std::ostream& out, const Vector3D vec)
     return out;
 }
 
+struct Velocity;
+struct Acceleration;
+struct Position;
+struct Force;
+
+struct Position : public Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    Position& operator=(const Vector3D& other) = delete;
+};
+
+//using Velocity = Vector<3, Tag_Velocity>;
+
+struct Velocity : public Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    using Vector3D::operator-;
+
+    //Velocity& operator=(const Vector3D& other) = delete;
+    //Velocity& operator-(const Acceleration& other) = delete;
+};
+
+//using Acceleration = Vector<3, Tag_Acceleration>;
+
+struct Acceleration : public Vector3D
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    Acceleration& operator=(const Vector3D& other) = delete;
+};
+
+struct Force : public Vector3D 
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+    Acceleration& operator=(const Vector3D& other) = delete;
+};
+
+struct Normal : public Vector3D 
+{
+    using Vector3D::Vector3D;
+    using Vector3D::operator=;
+};
+
+Position operator+(const Position& lhs, const Position& rhs) = delete;
+Velocity operator+(const Velocity& lhs, const Acceleration& rhs) = delete;
