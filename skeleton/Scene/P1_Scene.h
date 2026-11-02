@@ -16,7 +16,9 @@ public:
         //par = new Particle(Vector3D{10.0,0.0,0.0},Vector3D{1.0,0.0,0.0},Vector3D{0,-3,0});
         Camera* camera = GetCamera();
         //proyectile1 = new Proyectile(camera,500_m_s,-9.8_m_s,5_g,25_m_s);
-        proyectile1 = new Proyectile(camera,100_m_s,-9.8_m_s,100_g,25_m_s);
+
+        shape = CreateShape(physx::PxSphereGeometry(1.0f));
+        proyectile1 = new Proyectile(shape,camera, 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1});
 
         
         //physx::PxTransform(physx::PxVec3(0.0f, 0.0f, 0.0f));
@@ -52,7 +54,7 @@ public:
                 proyectile1->modify_real_velocity(-5);
                 break;
             case ' ':
-                m_Particles.push_back(new Proyectile(GetCamera(), 100_m_s, -9.8_m_s, 100_g, 25_m_s));
+                m_Particles.push_back(new Proyectile(shape,GetCamera(), 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1}));
                 break;
         }
     }
@@ -81,6 +83,7 @@ private:
     Proyectile* proyectile1{};
     std::vector<Particle*> m_Particles{};
     std::vector<RenderItem*> m_renderItem{};
+    physx::PxShape* shape = nullptr;
     //std::vector<Particle> m_particle;
 };
 

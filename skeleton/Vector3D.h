@@ -11,6 +11,8 @@ public:
     Vector3D(float x,float y, float z):x{ x }, y{ y }, z{ z } {};
     Vector3D(const physx::PxVec3 pxVec3) : x{ pxVec3.x }, y{ pxVec3.y }, z{ pxVec3.z } {};
 
+
+
     Vector3D(const Vector3D& other)
     {
         x = other.x;
@@ -53,8 +55,12 @@ public:
         return Vector3D{x - b.x, y - b.y, z - b.z};
     }
 
-    Vector3D operator+=(const Vector3D b) {
-        return Vector3D{ x + b.x, y + b.y, z + b.z };
+    Vector3D& operator+=(const Vector3D b) 
+    {
+        x += b.x;
+        y += b.y;
+        z += b.z;
+        return *this;
     }
 
     Vector3D operator/(float scalar) const
@@ -77,7 +83,7 @@ public:
         return physx::PxVec3{x, y, z};
     }
 
-
+    
 
 public:
     float x, y, z;
@@ -149,12 +155,6 @@ struct Force : public Vector3D
     using Vector3D::Vector3D;
     using Vector3D::operator=;
     Acceleration& operator=(const Vector3D& other) = delete;
-};
-
-struct Normal : public Vector3D 
-{
-    using Vector3D::Vector3D;
-    using Vector3D::operator=;
 };
 
 Position operator+(const Position& lhs, const Position& rhs) = delete;

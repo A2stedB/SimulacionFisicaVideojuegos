@@ -3,21 +3,23 @@
 #include "PxPhysicsAPI.h"
 #include "RenderUtils.hpp"
 #include "IntegrationType.h"
+#include "Helper.h"
 
 struct ParticleModel
 {
 	Velocity velocity{};
-	physx::PxVec4 color{};
+	Color color{};
 	Acceleration acceleration{};
+	physx::PxShape* shape{ nullptr };
 };
 
 class Particle
 {
 public:
 	Particle() = default;
-	Particle(physx::PxTransform transform);
-	Particle(Velocity velocity,Position position,Acceleration acceleration = Acceleration{0,0,0});
-	Particle(Velocity velocity, Position position, Acceleration acceleration = Acceleration{ 0,0,0 }, float mass = 0);
+	Particle(physx::PxShape* shape,Position transform,Color color);
+	Particle(physx::PxShape* shape,Velocity velocity,Position position,Acceleration acceleration, Color colour);
+	Particle(physx::PxShape* shape, Velocity velocity, Position position, Acceleration acceleration, Color colour, float mass);
 	//Particle(Vector3D velocity, float gravity, Vector4 colour);
 	~Particle();
 

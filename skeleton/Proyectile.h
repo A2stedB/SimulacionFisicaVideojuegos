@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include "Particle.h"
-
+#include "Helper.h"
 class Proyectile : public Particle
 {
 public:
 	Proyectile();
-	Proyectile(Camera* camera,float velocity,float acceleration,float mass,float objective_velocity);
-	Proyectile(Velocity velocity, Position position, Acceleration acceleration, float mass, Velocity objective_velocity);
+	Proyectile(physx::PxShape* shape,Camera* camera,float velocity,float acceleration,float mass,float objective_velocity,Color color);
+	Proyectile(physx::PxShape* shape,Velocity velocity, Position position, Acceleration acceleration, float mass, Velocity objective_velocity, Color color);
 	~Proyectile();
 
 	void modify_real_mass(float value); // no hace set

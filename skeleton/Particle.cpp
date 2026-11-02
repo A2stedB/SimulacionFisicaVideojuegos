@@ -4,35 +4,35 @@
 #include <iostream>
 #include <cmath>
 
-Particle::Particle(physx::PxTransform transform)
+Particle::Particle(physx::PxShape* shape, Position position, Color color)
 {
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
-	this->velocity = velocity;
-	this->acceleration = acceleration;
-	this->transform = transform;
-
-	this->renderItem = new RenderItem(shape, &this->transform, YELLOW);
-}
-
-Particle::Particle(Velocity velocity, Position position,Acceleration acceleration)
-{
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+	//physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;
 	this->acceleration = acceleration;
 	this->transform = physx::PxTransform(position);
 
-	this->renderItem = new RenderItem(shape,&this->transform,YELLOW);
+	this->renderItem = new RenderItem(shape, &this->transform, color);
 }
 
-Particle::Particle(Velocity velocity, Position position, Acceleration acceleration, float mass) 
+Particle::Particle(physx::PxShape* shape, Velocity velocity,Position position,Acceleration acceleration, Color colour)
 {
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+	//physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+	this->velocity = velocity;
+	this->acceleration = acceleration;
+	this->transform = physx::PxTransform(position);
+
+	this->renderItem = new RenderItem(shape,&this->transform,colour);
+}
+
+Particle::Particle(physx::PxShape* shape, Velocity velocity, Position position,Acceleration acceleration,Color colour, float mass)
+{
+	//physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
 	this->velocity = velocity;
 	this->acceleration = acceleration;
 	this->transform = physx::PxTransform(position);
 	this->mass = mass;
 
-	this->renderItem = new RenderItem(shape, &this->transform, BLUE);
+	this->renderItem = new RenderItem(shape, &this->transform, colour);
 }
 
 Particle::~Particle()
@@ -43,9 +43,7 @@ Particle::~Particle()
 Particle::Particle(const Particle& other)
 	: velocity(other.velocity), transform(other.transform), acceleration(other.acceleration),mass{ other.mass }
 {
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
-
-	this->renderItem = new RenderItem(shape, &this->transform, RED);
+	this->renderItem = new RenderItem(other.renderItem->shape, &this->transform, other.renderItem->color);
 }
 
 void Particle::integrate(double t, IntegrationType integrationType)

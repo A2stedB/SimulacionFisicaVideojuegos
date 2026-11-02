@@ -23,8 +23,7 @@ void ParticleGenerator::update(ParticleSystem* system,float dt)
 	Position new_position = this->position;
 
 	generate_particle(&new_position,&new_velocity);
-	Particle* particle = new Particle(new_velocity,new_position,model.acceleration, 0.001);
-	particle->renderItem->color = model.color;
+	Particle* particle = new Particle(model.shape,new_velocity,new_position,model.acceleration,model.color,0.001);
 	
 	system->particles.push_back(particle);
 }
