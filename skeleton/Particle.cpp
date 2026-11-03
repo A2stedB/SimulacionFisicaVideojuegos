@@ -82,7 +82,9 @@ void Particle::sympletic_euler_integration(double t)
 	velocity = velocity + acceleration * FixedTimestep;
 	transform.p = transform.p + (velocity * FixedTimestep);
 
+
 	velocity = velocity * std::pow(DAMPING_FACTOR, t);
+	//std::cout << velocity << std::endl;
 }
 
 void Particle::verlet_integration(double t)

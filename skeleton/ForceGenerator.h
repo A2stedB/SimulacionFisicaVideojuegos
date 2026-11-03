@@ -13,12 +13,6 @@ struct BoxVolume
     
 	bool IsInside(Constant<Position>& position) 
 	{
-
-		/*
-			Center: (0,0,0)
-			Position: (3,4,7)
-			
-		*/
 		return 
 			(center.x - half_width < position.x && center.x + half_width > position.x) &&
 			(center.y - half_height < position.y && center.y + half_height > position.y) &&
@@ -30,12 +24,15 @@ class ForceGenerator
 {
 public:
 	ForceGenerator();
-
-	virtual Force AddForce(Particle& particula) = 0;
+	~ForceGenerator() = default;
+	virtual Force AddForce(Particle& particula)
+	{
+		return Force();
+	}
 
 public:
 	// Una fuerza
-	//Vector3D acceleration{};
+	// Vector3D acceleration{};
 	// Area de efecto (puede no tenerlo)
 	// 
 };
@@ -63,6 +60,7 @@ public:
 	{
 		center = physx::PxTransform(effect_volume.center);
 		physx::PxShape* shape = CreateShape(physx::PxBoxGeometry(effect_volume.half_width, effect_volume.half_height, effect_volume.half_depth));
+
 		if (shape)
 		{
 			// Marcamos la forma como TRIGGER para que se dibuje en modo líneas / wireframe
@@ -81,7 +79,6 @@ public:
 	{
 		if (!effect_volume.IsInside(particle.transform.p))
 		{
-			std::cout << "fuera" << std::endl;
 			return Force();
 		}
 		Constant<float> k1 = 1;
@@ -89,7 +86,6 @@ public:
 
 		Vector3D difference = wind_velocity - particle.velocity;
 
-		std::cout << "dentro" << std::endl;
 		return (Force) ( k1*(difference) + 
 			             k2 * difference.module() * difference);
 	}
@@ -127,6 +123,47 @@ public:
 
 		return (Force)(difference);
 	}
+};
+
+class ExplosiveForceGenerator : public ForceGenerator
+{
+public:
+	ExplosiveForceGenerator(Position center, float radius, float explosion_intensity,float explosion_time_constant) :
+		center(center), explosion_radius(radius), explotion_intensity(explosion_intensity), explosion_time_constant(explosion_time_constant)
+	{
+	};
+
+	Force AddForceExplosive(Particle& particle,float dt)
+	{
+		Constant<Position>& particle_position = particle.transform.p;
+
+		Constant<float> distance_x = particle_position.x - center.x;
+		Constant<float> distance_y = particle_position.y - center.y;
+		Constant<float> distance_z = particle_position.z - center.z;
+
+		Constant<float> distance_to_explosion = std::sqrtf(std::powf(distance_x,2) + std::powf(distance_y, 2) + std::powf(distance_z, 2));
+
+		if (distance_to_explosion > explosion_radius)
+		{
+			return Force();
+		}
+
+		Constant<float> E = 2.71828182845904523536;
+
+		Constant<float> K_r2 = explotion_intensity / std::powf(explosion_radius, 2);
+		Constant<float> e_tr = std::powf(E, -(dt / explosion_time_constant));
+
+		return (Force)(K_r2 * Force(distance_x, distance_y, distance_z) * e_tr);
+	}
+
+private:
+
+	Position center{};
+	float explosion_radius{};
+	float explotion_intensity{};
+	float explosion_time_constant{};
+	//double explosion_start_time{};
+
 };
 
 
