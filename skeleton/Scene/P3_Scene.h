@@ -15,12 +15,12 @@ public:
         particle = new Particle(shape,Velocity(0, 0, 0), Position{ 1.0,0.0,0.0 }, Acceleration{ 0,0,0 }, Color{0,1,0,1},10);
         gravityGenerator = new GravityForceGenerator();
 
-        BoxVolume box = BoxVolume{ Position(0,0,0),100,20,100};
+        BoxVolume box = BoxVolume{ Position(20,0,0),100,20,100};
 
         //wind = new WindForceGenerator(Velocity(0, 1000, 0),box);
         whirl = new WhirlwindForceGenerator(box);
 
-        explosive = new ExplosiveForceGenerator(Position(0, 0, 0),10,100,1);
+        explosive = new ExplosiveForceGenerator(Position(0, 0, 0),50,10,1);
     }
 
     void update(double dt) override

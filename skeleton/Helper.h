@@ -25,5 +25,11 @@ static Color BLUE = { 0.0f,0.0f,1.0f,1.0f };
 static Color YELLOW = { 1.0f,1.0f,0.0f,1.0f };
 
 
-template<typename T>
-using Constant = const T;
+template<typename Type>
+using Constant = const Type;
+
+template<typename Type>
+using Ref = Type&;
+
+template<typename Type>
+using Pointer = Type*;

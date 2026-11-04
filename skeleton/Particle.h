@@ -41,9 +41,4 @@ public:
 	float mass{};
 };
 
-//template<typename T>
-//class Particle2{};
-//
-//template<>
-//class Particle2<Projectile>
-
+void particle_integrate(Particle& particle, double dt, IntegrationType integrationType);

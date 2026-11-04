@@ -2,6 +2,7 @@
 #include "Vector3D.h"
 #include "Particle.h"
 #include "Helper.h"
+#include <PxPhysicsAPI.h>
 #include <cmath>
 
 struct BoxVolume 
@@ -131,6 +132,10 @@ public:
 	ExplosiveForceGenerator(Position center, float radius, float explosion_intensity,float explosion_time_constant) :
 		center(center), explosion_radius(radius), explotion_intensity(explosion_intensity), explosion_time_constant(explosion_time_constant)
 	{
+		physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(3.0f));
+		transform = physx::PxTransform(center);
+
+		center_mark = new RenderItem(shape, &transform, Color(1, 0, 0, 1));
 	};
 
 	Force AddForceExplosive(Particle& particle,float dt)
@@ -150,7 +155,7 @@ public:
 
 		Constant<float> E = 2.71828182845904523536;
 
-		Constant<float> K_r2 = explotion_intensity / std::powf(explosion_radius, 2);
+		Constant<float> K_r2 = explotion_intensity / std::powf(distance_to_explosion, 2);
 		Constant<float> e_tr = std::powf(E, -(dt / explosion_time_constant));
 
 		return (Force)(K_r2 * Force(distance_x, distance_y, distance_z) * e_tr);
@@ -159,9 +164,11 @@ public:
 private:
 
 	Position center{};
+	physx::PxTransform transform;
 	float explosion_radius{};
 	float explotion_intensity{};
 	float explosion_time_constant{};
+	RenderItem* center_mark = nullptr;
 	//double explosion_start_time{};
 
 };
