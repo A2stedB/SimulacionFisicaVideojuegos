@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "ParticleSystem.h"
 #include "ParticleGenerator.h"
+#include "Distribution.h"
 
 class P2_Scene : public Scene 
 {
@@ -12,10 +13,12 @@ public:
     {
         //ParticleModel particle = Particle(Vector3D{ 10.0,0.0,0.0 }, Vector3D{ 1.0,0.0,0.0 }, Vector3D{ 0,-3,0 },0.001);
         physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(1.0f));
-        ParticleModel model{Velocity{20,0,0},RED,Acceleration{0,-10,0},shape};
+        ParticleModel model{Velocity{20,0,0},RED,Acceleration{0,-10,0},shape,500};
         
-        ParticleGenerator* generator = new ParticleGenerator(Vector3D{0,20,0},&model);
-        generator->generate_particle = [](Vector3D* position, Vector3D* velocity)
+        ParticleGenerator* generator = new ParticleGenerator(Position{0,20,0},model,Max(5000));
+
+
+        generator->generate_particle = [](Vector3D* position, Vector3D* velocity, int* lifetime)
             {
                 int OFFSET = 20;
                 velocity->x = distribution::uniform(velocity->x - OFFSET, velocity->x + OFFSET);
@@ -28,10 +31,12 @@ public:
             };
 
         //particleSystem.addGenerator(generator);
-        ParticleModel model2{Velocity{0,-10,0},YELLOW,Acceleration{0,-10,0},shape};
 
-        ParticleGenerator* generator2 = new ParticleGenerator(Vector3D{ 20,20,-10 }, &model2);
-        generator2->generate_particle = [](Vector3D* position, Vector3D* velocity)
+
+        ParticleModel model2{Velocity{0,-10,0},YELLOW,Acceleration{0,-10,0},shape,500 };
+
+        ParticleGenerator* generator2 = new ParticleGenerator(Position{ 20,20,-10 }, model2, Max(5000));
+        generator2->generate_particle = [](Vector3D* position, Vector3D* velocity, int* lifetime)
             {
                 position->x = distribution::normal(position->x-50,position->x+50);
                 //position->y = distribution::normal(position->y,20);
@@ -42,10 +47,10 @@ public:
 
         //particleSystem.addGenerator(generator2);
 
-        ParticleModel model3{Velocity{0,20,0},BLUE,Acceleration{0,-10,0},shape};
-        ParticleGenerator* generator3 = new ParticleGenerator(Vector3D{ 50,50,-20 }, &model3);
+        ParticleModel model3{Velocity{0,20,0},BLUE,Acceleration{0,-10,0},shape,500 };
+        ParticleGenerator* generator3 = new ParticleGenerator(Position{ 50,50,-20 }, model3,Max(5000));
 
-        generator3->generate_particle = [](Vector3D* position, Vector3D* velocity)
+        generator3->generate_particle = [](Vector3D* position, Vector3D* velocity, int* lifetime)
             {
                 velocity->x = distribution::uniform(-10, 10);
             };

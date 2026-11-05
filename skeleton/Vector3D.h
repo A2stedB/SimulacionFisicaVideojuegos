@@ -127,6 +127,7 @@ struct Position : public Vector3D
     using Vector3D::Vector3D;
     using Vector3D::operator=;
     Position& operator=(const Vector3D& other) = delete;
+    Position(const Vector3D& other) = delete;
 };
 
 //using Velocity = Vector<3, Tag_Velocity>;

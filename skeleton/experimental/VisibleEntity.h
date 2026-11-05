@@ -4,7 +4,7 @@
 
 struct Particle2
 {
-    Particle2(physx::PxShape* shape);
+    Particle2(physx::PxShape* shape) {};
 
     sim::Particle particle;
     RenderItem* renderItem;

@@ -37,7 +37,7 @@ Particle::Particle(physx::PxShape* shape, Velocity velocity, Position position,A
 
 Particle::~Particle()
 {
-	delete renderItem;
+	renderItem->release();
 }
 
 Particle::Particle(const Particle& other)
@@ -84,7 +84,7 @@ void Particle::sympletic_euler_integration(double t)
 
 
 	velocity = velocity * std::pow(DAMPING_FACTOR, t);
-	std::cout << velocity << std::endl;
+	//std::cout << velocity << std::endl;
 }
 
 void Particle::verlet_integration(double t)
@@ -92,25 +92,25 @@ void Particle::verlet_integration(double t)
 	// TODO
 }
 
-void particle_integrate_explicit_euler(Particle& particle, double dt)
-{
+//void particle_integrate_explicit_euler(Particle& particle, double dt)
+//{
+//
+//}
 
-}
-
-void particle_integrate(Particle& particle, double dt, IntegrationType integrationType)
-{
-	switch (integrationType)
-	{
-	case IntegrationType::Euler: 
-		particle_explicit_euler_integration(t);
-		break;
-	case IntegrationType::Symplectic_Euler:
-		sympletic_euler_integration(t);
-		break;
-	case IntegrationType::Verlet:
-		verlet_integration(t);
-		break;
-	default:
-		break;
-	}
-}
+//void particle_integrate(Particle& particle, double dt, IntegrationType integrationType)
+//{
+//	switch (integrationType)
+//	{
+//	case IntegrationType::Euler: 
+//		particle_explicit_euler_integration(t);
+//		break;
+//	case IntegrationType::Symplectic_Euler:
+//		sympletic_euler_integration(t);
+//		break;
+//	case IntegrationType::Verlet:
+//		verlet_integration(t);
+//		break;
+//	default:
+//		break;
+//	}
+//}

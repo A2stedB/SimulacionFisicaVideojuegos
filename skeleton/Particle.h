@@ -11,6 +11,8 @@ struct ParticleModel
 	Color color{};
 	Acceleration acceleration{};
 	physx::PxShape* shape{ nullptr };
+	int mass{1};
+	int lifetime{100};
 };
 
 class Particle
@@ -39,6 +41,7 @@ public:
 	Acceleration acceleration{};
 	RenderItem* renderItem{};
 	float mass{};
+	int lifetime{};
 };
 
-void particle_integrate(Particle& particle, double dt, IntegrationType integrationType);
+//void particle_integrate(Particle& particle, double dt, IntegrationType integrationType);

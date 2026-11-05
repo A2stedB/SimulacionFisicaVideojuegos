@@ -17,7 +17,6 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="ParticleGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
-    <ClCompile Include="experimental\ParticleExperimental.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -47,8 +46,6 @@
     <ClInclude Include="Scene\P2_Scene.h" />
     <ClInclude Include="Scene\P3_Scene.h" />
     <ClInclude Include="ForceGenerator.h" />
-    <ClInclude Include="experimental\ParticleExperimental.h" />
-    <ClInclude Include="experimental\VisibleEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

@@ -12,13 +12,14 @@ public:
 
     void init() override 
     {
-        //physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
-        //par = new Particle(Vector3D{10.0,0.0,0.0},Vector3D{1.0,0.0,0.0},Vector3D{0,-3,0});
+        physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(2.0f));
+        par1 = new Particle(shape,Velocity{10.0,0.0,0.0},Position{1.0,0.0,0.0},Acceleration{0,-3,0},RED,1_kg);
+        par2 = new Particle(shape, Velocity{10.0,0.0,0.0}, Position{1.0,0.0,0.0},Acceleration{0,-3,0},RED,1_g);
         Camera* camera = GetCamera();
         //proyectile1 = new Proyectile(camera,500_m_s,-9.8_m_s,5_g,25_m_s);
 
         shape = CreateShape(physx::PxSphereGeometry(1.0f));
-        proyectile1 = new Proyectile(shape,camera, 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1});
+        //proyectile1 = new Proyectile(shape,camera, 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1});
 
         
         //physx::PxTransform(physx::PxVec3(0.0f, 0.0f, 0.0f));
@@ -32,11 +33,19 @@ public:
         // Lógica/Integración del alumno (por ejemplo, movimiento simple)
         //m_transform.p.y -= static_cast<float>(9.8 * dt);
         //par->integrate(dt,IntegrationType::Euler);
-        proyectile1->integrate(dt,IntegrationType::Symplectic_Euler);
+        //proyectile1->integrate(dt,IntegrationType::Symplectic_Euler);
 
         for (auto& proyectile : m_Particles)
         {
             proyectile->integrate(dt, IntegrationType::Symplectic_Euler);
+            --proyectile->lifetime;
+
+            if (proyectile->lifetime <= 0)
+            {
+                std::swap(proyectile, m_Particles[m_Particles.size() - 1]);
+                delete proyectile;
+                m_Particles.pop_back();
+            }
         };
 
         //for (Particle& particle : m_particle) 
@@ -46,15 +55,23 @@ public:
     }
     void keyPress(unsigned char key, const physx::PxTransform& camera) override 
     {
+        Proyectile* proyectile = nullptr;
         switch (key) {
             case '+':
-                proyectile1->modify_real_velocity(5);
+                proyectile->modify_real_velocity(5);
                 break;
             case '-':
-                proyectile1->modify_real_velocity(-5);
+                proyectile->modify_real_velocity(-5);
                 break;
-            case ' ':
-                m_Particles.push_back(new Proyectile(shape,GetCamera(), 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1}));
+            case 'f':
+                proyectile = new Proyectile(shape,GetCamera(), 100_m_s, -9.8_m_s, 100_g, 25_m_s, Color{0,1,0,1});
+                m_Particles.push_back(proyectile);
+                proyectile->lifetime = 500;
+                break;
+            case 'j':
+                Proyectile* proyectile2 = new Proyectile(shape, GetCamera(), 300_m_s, -9.8_m_s, 8_g, 25_m_s, Color{ 0,0,1,1 });
+                m_Particles.push_back(proyectile2);
+                proyectile2->lifetime = 500;
                 break;
         }
     }
@@ -72,15 +89,15 @@ public:
                 delete particle;
                 particle = nullptr;
             }
-        delete par;
-        delete proyectile1;
+        delete par1;
+        delete par2;
     }
 
 private:
 
 private:
-    Particle* par{};
-    Proyectile* proyectile1{};
+    Particle* par1{};
+    Particle* par2{};
     std::vector<Particle*> m_Particles{};
     std::vector<RenderItem*> m_renderItem{};
     physx::PxShape* shape = nullptr;

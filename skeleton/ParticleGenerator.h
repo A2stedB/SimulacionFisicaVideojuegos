@@ -1,31 +1,39 @@
 ﻿#pragma once
 #include "Vector3D.h"
-#include <PxPhysicsAPI.h>
-#include "Distribution.h"
 #include "Particle.h"
 
 
 
 class ParticleSystem;
 
+using Max = int;
+
 class ParticleGenerator
 {
 public:
 	ParticleGenerator() = default;
-	ParticleGenerator(Vector3D position, ParticleModel* particle_model);
+	ParticleGenerator(Position position, ParticleModel particle_model,Max max);
 	//ParticleGenerator(Vector3D position, ParticleModel* particle_model);
 	~ParticleGenerator() = default;
 
 public:
 	void update(ParticleSystem* system,float dt);
-	void setMax(int new_max);
+	void Toggle()
+	{
+		is_active = !is_active;
+	}
+	//void setMax(int new_max);
+
 public:
+	float time_since_last_generation = 0;
 	float (*updateTime)(ParticleGenerator*);
-	void (*generate_particle)(Vector3D*,Vector3D*);
-	float current_tick{ 0 };
+	void (*generate_particle)(Vector3D*,Vector3D*,int*);
+	float next_generation_time = 0;
+	void (*random_generation_interval)(float*) = nullptr;
 	ParticleModel model{};
 	Position position{};
-	int max{10000};
+	int max{100};
 	int count{ 0 };
+	bool is_active = true;
 };
 

@@ -34,7 +34,7 @@ void sim::Particle_Integrate(Ref<Particle> particle,double dt, IntegrationType i
 	}
 }
 
-void Particle_ExplicitEulerIntegration(Ref<sim::Particle> particle, double dt)
+void sim::Particle_ExplicitEulerIntegration(Ref<Particle> particle, double dt)
 {
 	particle.position = particle.position+ (particle.velocity * dt);
 	particle.velocity = particle.velocity + particle.acceleration * dt;
@@ -46,7 +46,7 @@ void Particle_ExplicitEulerIntegration(Ref<sim::Particle> particle, double dt)
 	particle.velocity = particle.velocity * std::pow(DAMPING_FACTOR, dt);
 }
 
-void Particle_SympleticEulerIntegration(Ref<sim::Particle> particle, double dt)
+void sim::Particle_SympleticEulerIntegration(Ref<Particle> particle, double dt)
 {
 	particle.velocity = particle.velocity + particle.acceleration * dt;
 	particle.position = particle.position + (particle.velocity * dt);
@@ -55,7 +55,7 @@ void Particle_SympleticEulerIntegration(Ref<sim::Particle> particle, double dt)
 	particle.velocity = particle.velocity * std::pow(DAMPING_FACTOR, dt);
 }
 
-void Particle_VerletIntegration(Ref<sim::Particle> particle, double dt)
+void sim::Particle_VerletIntegration(Ref<Particle> particle, double dt)
 {
 	// TODO
 }
