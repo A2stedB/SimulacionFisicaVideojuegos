@@ -28,7 +28,7 @@ public:
 	Particle(const Particle& other);
 
 public:
-	void integrate(double t, IntegrationType integrationType);
+	void Integrate(double t, IntegrationType integration_type);
 
 protected:
 	void explicit_euler_integration(double t);

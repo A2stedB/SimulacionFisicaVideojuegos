@@ -37,7 +37,7 @@ public:
 
         for (auto& proyectile : m_Particles)
         {
-            proyectile->integrate(dt, IntegrationType::Symplectic_Euler);
+            proyectile->Integrate(dt, IntegrationType::Symplectic_Euler);
             --proyectile->lifetime;
 
             if (proyectile->lifetime <= 0)

@@ -297,6 +297,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene\P2_Scene.h" />
     <ClInclude Include="Scene\P3_Scene.h" />
+    <ClInclude Include="Scene\P4_Scene.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>

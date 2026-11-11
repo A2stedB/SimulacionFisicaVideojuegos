@@ -225,6 +225,50 @@ private:
 };
 
 
+class SpringForceGenerator : public ForceGenerator
+{
+public:
+	SpringForceGenerator(double k, double resting_length, Particle* other) :
+		k(k), resting_length(resting_length), other(other)
+	{
+
+	}
+
+
+
+	Force AddForce(Particle& particle, float dt) override
+	{
+		if (&particle == other)
+		{
+			return Force();
+		}
+
+		Vector3D relative_position_vector = other->transform.p - particle.transform.p;
+		Vector3D normalized = relative_position_vector.normalize();
+
+		Constant<float> length = normalized.module();
+		Constant<float> delta_x = length - resting_length;
+
+		return Force(relative_position_vector * delta_x * k);
+	}
+protected:
+	double k = 0;
+	double resting_length = 0;
+	Particle* other = nullptr;
+};
+
+class AnchorSpringFG : public SpringForceGenerator
+{
+public:
+	AnchorSpringFG(double k, double resting_length, Position anchor_position) :
+		SpringForceGenerator(k, resting_length, nullptr)
+	{
+		other = new Particle(shape, anchor_position, YELLOW);
+	};
+
+private:
+	physx::PxShape* shape = CreateShape(physx::PxBoxGeometry(2, 2, 2));
+};
 
 
 

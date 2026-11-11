@@ -46,9 +46,9 @@ Particle::Particle(const Particle& other)
 	this->renderItem = new RenderItem(other.renderItem->shape, &this->transform, other.renderItem->color);
 }
 
-void Particle::integrate(double t, IntegrationType integrationType)
+void Particle::Integrate(double t, IntegrationType integration_type)
 {
-	switch (integrationType)
+	switch (integration_type)
 	{
 	    case IntegrationType::Euler:
 			explicit_euler_integration(t);

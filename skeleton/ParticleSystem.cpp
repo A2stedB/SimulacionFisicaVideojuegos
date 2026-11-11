@@ -31,7 +31,7 @@ void ParticleSystem::update(float dt)
 		Particle* particle = particles[i];
 
 		particle->acceleration = particle_force[i] / particle->mass;
-		particle->integrate(dt, IntegrationType::Symplectic_Euler);
+		particle->Integrate(dt, IntegrationType::Symplectic_Euler);
 		--particle->lifetime;
 
 		if (particle->lifetime <= 0)
