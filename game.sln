@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37710.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game.vcxproj", "{DF91286C-A048-0858-C381-C4106C184C0B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "skeleton\game.vcxproj", "{DF91286C-A048-0858-C381-C4106C184C0B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "experimental", "..\experimental\experimental.vcxproj", "{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "experimental", "experimental\experimental.vcxproj", "{CA2120B1-3B6D-401A-ABD5-02884FBF195D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{DF91286C-A048-0858-C381-C4106C184C0B}.profile|x64.Build.0 = profile|x64
 		{DF91286C-A048-0858-C381-C4106C184C0B}.release|x64.ActiveCfg = release|x64
 		{DF91286C-A048-0858-C381-C4106C184C0B}.release|x64.Build.0 = release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.checked|x64.ActiveCfg = Release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.checked|x64.Build.0 = Release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.debug|x64.ActiveCfg = Debug|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.debug|x64.Build.0 = Debug|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.profile|x64.ActiveCfg = Release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.profile|x64.Build.0 = Release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.release|x64.ActiveCfg = Release|x64
-		{FD3E82A4-FD58-46D5-B9F0-B61A09ED6B3D}.release|x64.Build.0 = Release|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.checked|x64.ActiveCfg = checked|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.checked|x64.Build.0 = checked|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.debug|x64.ActiveCfg = debug|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.debug|x64.Build.0 = debug|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.profile|x64.ActiveCfg = profile|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.profile|x64.Build.0 = profile|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.release|x64.ActiveCfg = release|x64
+		{CA2120B1-3B6D-401A-ABD5-02884FBF195D}.release|x64.Build.0 = release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
