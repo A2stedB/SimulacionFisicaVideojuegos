@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 //#include "../Vector3D.h"
 //#include "IntegrationType.h"
 //#include "../Helper.h"
@@ -18,4 +18,10 @@ namespace sim
     };
 
     void Particle_Integrate(Pointer<Particle> particle, double dt, IntegrationType integration_type);
+
+    struct Projectile 
+    {
+        Particle particle;
+        float mass;
+    };
 }

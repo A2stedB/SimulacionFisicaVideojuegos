@@ -128,6 +128,7 @@ void stepPhysics(bool interactive, double t)
 
 	// Step the physics simulation in fixed timesteps
 	// This loop allows for multiple physics steps if the accumulated time exceeds the fixed timestep
+	int step_count = 0;
 	while (gPhysicsTimeAccumulator >= gFixedTimestep)
 	{
 		// simulate() arranca la simulación de forma asíncrona en el hilo de físicas
@@ -139,7 +140,9 @@ void stepPhysics(bool interactive, double t)
 
 		gPhysicsTimeAccumulator -= gFixedTimestep;
 		SceneManager::instance().update(gFixedTimestep);
+		++step_count;
 	}
+	std::cout << step_count << std::endl;
 }
 
 
