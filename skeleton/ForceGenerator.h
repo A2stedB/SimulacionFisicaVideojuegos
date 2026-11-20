@@ -243,10 +243,14 @@ public:
 			return Force();
 		}
 
+		/*
+		 La idea es simplemente, coger la distancia de la particula al anclaje
+		*/
+
 		Vector3D relative_position_vector = other->transform.p - particle.transform.p;
 		Vector3D normalized = relative_position_vector.normalize();
 
-		Constant<float> length = normalized.module();
+		Constant<float> length = relative_position_vector.module();
 		Constant<float> delta_x = length - resting_length;
 
 		return Force(relative_position_vector * delta_x * k);
