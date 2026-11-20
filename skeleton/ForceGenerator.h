@@ -27,7 +27,7 @@ public:
 	ForceGenerator();
 	~ForceGenerator() = default;
 
-	virtual Force AddForce(Particle& particula,float dt)
+	virtual Force AddForce(Particle* particula,float dt)
 	{
 		return Force();
 	}
@@ -47,13 +47,13 @@ class GravityForceGenerator : public ForceGenerator
 public:
 	GravityForceGenerator() = default;
 
-	Force AddForce(Particle& particle, float dt) override
+	Force AddForce(Particle* particle, float dt) override
 	{
 		if (!is_active)
 		{
 			return Force();
 		}
-		return (Force)(acceleration * particle.mass);
+		return (Force)(acceleration * particle->mass);
 	}
 
 	virtual void Toggle() override
@@ -87,21 +87,21 @@ public:
 		delete wireframe;
 	}
 
-	Force AddForce(Particle& particle, float dt) override
+	Force AddForce(Particle* particle, float dt) override
 	{
 		if (!is_active)
 		{
 			return Force();
 		}
 
-		if (!effect_volume.IsInside(particle.transform.p))
+		if (!effect_volume.IsInside(particle->transform.p))
 		{
 			return Force();
 		}
 		Constant<float> k1 = 1;
 		Constant<float> k2 = 0;
 
-		Vector3D difference = wind_velocity - particle.velocity;
+		Vector3D difference = wind_velocity - particle->velocity;
 
 		return (Force) ( k1*(difference) + 
 			             k2 * difference.module() * difference);
@@ -125,19 +125,19 @@ class WhirlwindForceGenerator : public WindForceGenerator
 public:
 	WhirlwindForceGenerator(BoxVolume effect_volume) : WindForceGenerator(Velocity(), effect_volume) {};
 
-	Force AddForce(Particle& particle, float dt) override
+	Force AddForce(Particle* particle, float dt) override
 	{
 		if (!is_active)
 		{
 			return Force();
 		}
 
-		if (!effect_volume.IsInside(particle.transform.p))
+		if (!effect_volume.IsInside(particle->transform.p))
 		{
 			return Force();
 		}
 
-		Constant<Position>& particle_position = particle.transform.p;
+		Constant<Position>& particle_position = particle->transform.p;
 		Constant<Position>& center_position = center.p;
 
 		Constant<int> K = 10;
@@ -146,7 +146,7 @@ public:
 			50-(particle_position.y - center_position.y), 
 			particle_position.x - center_position.x));
 
-		Vector3D difference = (Vector3D)whirl_velocity - (Vector3D)particle.velocity;
+		Vector3D difference = (Vector3D)whirl_velocity - (Vector3D)particle->velocity;
 
 		return (Force)(difference);
 	}
@@ -170,7 +170,7 @@ public:
 		center_mark = new RenderItem(shape, &transform, Color(0, 0, 1, 1));
 	};
 
-	Force AddForce(Particle& particle,float dt) override
+	Force AddForce(Particle* particle,float dt) override
 	{
 		if (!is_active)
 		{
@@ -179,7 +179,7 @@ public:
 
 		time_since_explosion += dt;
 
-		Constant<Position>& particle_position = particle.transform.p;
+		Constant<Position>& particle_position = particle->transform.p;
 
 		Constant<float> distance_x = particle_position.x - center.x;
 		Constant<float> distance_y = particle_position.y - center.y;
@@ -236,9 +236,9 @@ public:
 
 
 
-	Force AddForce(Particle& particle, float dt) override
+	Force AddForce(Particle* particle, float dt) override
 	{
-		if (&particle == other)
+		if (particle == other)
 		{
 			return Force();
 		}
@@ -247,13 +247,26 @@ public:
 		 La idea es simplemente, coger la distancia de la particula al anclaje
 		*/
 
-		Vector3D relative_position_vector = other->transform.p - particle.transform.p;
-		Vector3D normalized = relative_position_vector.normalize();
+		//Vector3D relative_position_vector = other->transform.p - particle->transform.p;
+		//Vector3D normalized = relative_position_vector.normalize();
 
-		Constant<float> length = relative_position_vector.module();
-		Constant<float> delta_x = length - resting_length;
+		//Constant<float> length = normalized.module();
+		//Constant<float> delta_x = length - resting_length;
 
-		return Force(relative_position_vector * delta_x * k);
+		//return Force(relative_position_vector * delta_x * k);
+
+		Vector3D relative_position_vector = other->transform.p - particle->transform.p;  // El vector relativo
+		Constant<float> length = relative_position_vector.module(); // La distancia / longitud
+
+		if (length == 0.0f)
+		{
+			return Force();
+		}
+
+		Vector3D normalized = relative_position_vector.normalize(); // El vector relativo normalizado
+		Constant<float> delta_x = length - resting_length; // La diferencia del longitud respecto de la longitud de reposo
+
+		return Force(normalized * (delta_x * k));
 	}
 protected:
 	double k = 0;

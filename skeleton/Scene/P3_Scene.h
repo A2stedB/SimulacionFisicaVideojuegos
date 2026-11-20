@@ -113,7 +113,7 @@ public:
                     {
                         Force& particle_force = particle_system->particle_force[k];
                         Particle* particle = particle_system->particles[k];
-                        particle_force += force_generator->AddForce(*particle, dt);
+                        particle_force += force_generator->AddForce(particle, dt);
                     }
                 }
             }
