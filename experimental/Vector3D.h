@@ -2,6 +2,7 @@
 #include <foundation/PxVec3.h>
 #include <iostream>
 #include <cmath>
+#include "raylib.h"
 
 //template<typename Type>
 //struct Vector3D_Trait
@@ -127,6 +128,12 @@ public:
 
     operator physx::PxVec3() {
         return physx::PxVec3{x, y, z};
+    }
+
+
+    operator Vector3()
+    {
+        return { x,y,z };
     }
 
 public:

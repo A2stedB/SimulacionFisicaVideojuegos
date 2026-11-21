@@ -265,8 +265,10 @@
     <ClCompile Include="ParticleExperimental.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core.h" />
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Distribution.h" />
     <ClInclude Include="ParticleExperimental.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene\EmptyScene.h" />
     <ClInclude Include="Scene\P0S_Scene.h" />
     <ClInclude Include="Scene\P1_Scene.h" />

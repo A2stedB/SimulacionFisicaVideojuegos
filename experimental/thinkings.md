@@ -1,3 +1,18 @@
+### 20-11-2026
+Particula con masa y adelante, sin mas complicacion xD
+Por ejemplo, el la vida de la particula no forma parte de la simulacion como tal, es algo que nosotros lo decimos desde fuera, al igual que la forma de renderizarlo.
+
+Siguiendo esta idea, el generador de particulas y el sistema de particulas forma parte de la simulacion?
+
+El concepto de Virtual Timeline?
+
+利用Scope区分函数里不同的区域?
+
+Que datos necesita una "escena"?
+
+raylib es comodo la verdad
+
+como asociar el tiempo de vida con la particula de simulacion?
 
 ### 18-11-2026
 Empezamos desde principio

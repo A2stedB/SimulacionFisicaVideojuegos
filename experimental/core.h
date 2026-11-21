@@ -4,7 +4,7 @@ constexpr double FixedTimestep = 1.0f / 60.0f;
 
 constexpr float DAMPING_FACTOR = 0.99f;
 
-enum class IntegrationType
+enum class IntegrateType
 {
 	Euler = 1,
 	Symplectic_Euler,

@@ -4,9 +4,10 @@
 
 namespace sim
 {
-	void Particle_ExplicitEulerIntegration(Pointer<Particle> particle, double dt);
-	void Particle_SympleticEulerIntegration(Pointer<Particle> particle, double dt);
-	void Particle_VerletIntegration(Pointer<Particle> particle, double dt);
+	void Particle_Integrate_Euler(Pointer<Particle> particle, double dt);
+	void Particle_Integrate_SympleticEuler(Pointer<Particle> particle, double dt);
+	void Particle_Integrate_Verlet(Pointer<Particle> particle, double dt);
+
 }
 
 sim::Particle::Particle(Position position, Velocity velocity, Acceleration acceleration):
@@ -14,19 +15,31 @@ sim::Particle::Particle(Position position, Velocity velocity, Acceleration accel
 {
 }
 
+sim::Particle::Particle(ParticleData data):
+	position(data.position),velocity(data.velocity),acceleration(data.acceleration)
+{
 
-void sim::Particle_Integrate(Pointer<Particle> particle,double dt, IntegrationType integration_type)
+}
+
+sim::ParticleWithMass::ParticleWithMass(ParticleWithMassData data):
+	particle(Particle(data.particle_data)),mass(data.mass)
+{
+
+}
+
+
+void sim::Particle_Integrate(Pointer<Particle> particle,double dt, IntegrateType integration_type)
 {
 	switch (integration_type)
 	{
-		case IntegrationType::Euler:
-			Particle_ExplicitEulerIntegration(particle,dt);
+		case IntegrateType::Euler:
+			Particle_Integrate_Euler(particle,dt);
 			break;
-		case IntegrationType::Symplectic_Euler:
-			Particle_SympleticEulerIntegration(particle, dt);
+		case IntegrateType::Symplectic_Euler:
+			Particle_Integrate_SympleticEuler(particle, dt);
 			break;
-		case IntegrationType::Verlet:
-			Particle_VerletIntegration(particle,dt);
+		case IntegrateType::Verlet:
+			Particle_Integrate_Verlet(particle,dt);
 			break;
 		default:
 			throw 1;
@@ -34,7 +47,7 @@ void sim::Particle_Integrate(Pointer<Particle> particle,double dt, IntegrationTy
 	}
 }
 
-void sim::Particle_ExplicitEulerIntegration(Pointer<Particle> particle, double dt)
+void sim::Particle_Integrate_Euler(Pointer<Particle> particle, double dt)
 {
 	particle->position = particle->position + (particle->velocity * dt);
 	particle->velocity = particle->velocity + particle->acceleration * dt;
@@ -46,7 +59,7 @@ void sim::Particle_ExplicitEulerIntegration(Pointer<Particle> particle, double d
 	particle->velocity = particle->velocity * std::pow(DAMPING_FACTOR, dt);
 }
 
-void sim::Particle_SympleticEulerIntegration(Pointer<Particle> particle, double dt)
+void sim::Particle_Integrate_SympleticEuler(Pointer<Particle> particle, double dt)
 {
 	particle->velocity = particle->velocity + particle->acceleration * dt;
 	particle->position = particle->position + Vector3D(particle->velocity * dt);
@@ -55,7 +68,7 @@ void sim::Particle_SympleticEulerIntegration(Pointer<Particle> particle, double 
 	particle->velocity = particle->velocity * std::pow(DAMPING_FACTOR, dt);
 }
 
-void sim::Particle_VerletIntegration(Pointer<Particle> particle, double dt)
+void sim::Particle_Integrate_Verlet(Pointer<Particle> particle, double dt)
 {
 	// TODO
 }

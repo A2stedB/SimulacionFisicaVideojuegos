@@ -1,59 +1,75 @@
 ﻿#include "raylib.h"
+#include "ParticleExperimental.h"
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
-int main(void)
+sim::Particle::ParticleData data;
+
+
+int main()
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
+    using namespace sim;
+    Particle::ParticleData data;
+    data.position = Position(0, 0, 0);
+    data.velocity = Velocity(1, 0, 0);
+    data.acceleration = Acceleration(0, -9.8, 0);
+
+    Particle par = Particle(data);
+
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera mode");
+    InitWindow(screenWidth, screenHeight, "Simulacion Fisica");
 
-    // Define the camera to look into our 3d world
     Camera3D camera = { 0 };
-    camera.position = Vector3{ 0.0f, 10.0f, 10.0f };  // Camera position
-    camera.target = Vector3{ 0.0f, 0.0f, 0.0f };      // Camera looking at point
-    camera.up = Vector3{ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-    camera.fovy = 45.0f;                                // Camera field-of-view Y
-    camera.projection = CAMERA_PERSPECTIVE;             // Camera mode type
+    camera.position = Vector3{ 0.0f, 10.0f, 10.0f };
+    camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
+    camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
+    camera.fovy = 45.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
+
+    int cameraMode = CAMERA_FIRST_PERSON;
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+    HideCursor();
+    DisableCursor();
 
-    // Main game loop
+    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+
+
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+        {
+            UpdateCamera(&camera, CAMERA_FREE);
+            Particle_Integrate(&par, GetFrameTime(), IntegrateType::Symplectic_Euler);
+        }
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
+        ClearBackground(WHITE);
 
-        ClearBackground(RAYWHITE);
+        {
 
-        BeginMode3D(camera);
+            BeginMode3D(camera);
 
-        DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
-        DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
+            //DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
+            //DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
 
-        DrawGrid(10, 1.0f);
+            //DrawGrid(10, 1.0f);
 
-        EndMode3D();
+            DrawSphere(par.position,1.0f,BLUE);
+            //DrawSphere(Vector3(10,-5,0), 1.0f, RED);
 
-        DrawText("Welcome to the third dimension!", 10, 40, 20, DARKGRAY);
+            EndMode3D();
 
-        DrawFPS(10, 10);
+            //DrawText("Welcome to the third dimension!", 10, 40, 20, DARKGRAY);
+
+            //DrawFPS(10, 10);
+        }
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
