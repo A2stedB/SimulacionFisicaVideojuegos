@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 #include "Particle.h"
 #include "ForceGenerator.h"
@@ -14,16 +14,19 @@ public:
 
     void init() override
     {
-        Particle* p1 = new Particle(shape,Position(10,0,0),BLUE);
-        p1->mass = 1;
+        Particle* p1 = new Particle(shape,Position(15,0,0),BLUE);
+        p1->mass = 10;
 
-        Particle* p2 = new Particle(shape, Position(-11, 0, 0), BLUE);
-        p1->mass = 2;
+        Particle* p2 = new Particle(shape, Position(-10, 0, 0), BLUE);
+        p2->mass = 2;
 
-        SpringForceGenerator* f1 = new SpringForceGenerator(0.1,10,p1);
-        SpringForceGenerator* f2 = new SpringForceGenerator(0.1,10,p2);
+        //SpringForceGenerator* f1 = new AnchorSpringFG(1,10,Position(0,0,0));
+        //GravityForceGenerator* gravity = new GravityForceGenerator();
+        SpringForceGenerator* f1 = new SpringForceGenerator(100, 10, p1);
+        SpringForceGenerator* f2 = new SpringForceGenerator(100, 10, p2);
 
         force_generators.push_back(f1);
+        //force_generators.push_back(gravity);
         force_generators.push_back(f2);
 
         particles.push_back(p1);
@@ -31,8 +34,7 @@ public:
         forces.push_back(Force());
         forces.push_back(Force());
 
-        //p = new Particle(shape, Position(0, 10, 0), RED);
-        //p->mass = 1000;
+
     }
 
     void update(double dt) override
@@ -47,11 +49,17 @@ public:
             {
                 ForceGenerator* generator = force_generators[j];
 
-                forces[i] += generator->AddForce(*particle, dt);
+                forces[i] += generator->AddForce(particle, dt);
             }
 
-            particle->acceleration = forces[i] / particle->mass;
-            particle->Integrate(dt, IntegrationType::Symplectic_Euler);
+            //particle->acceleration = forces[i] / particle->mass;
+            //particle->Integrate(dt, IntegrationType::Symplectic_Euler);
+        }
+
+        for (int i = 0; i < particles.size(); ++i)
+        {
+            particles[i]->acceleration = forces[i] / particles[i]->mass;
+            particles[i]->Integrate(dt, IntegrationType::Symplectic_Euler);
         }
 
         //for (Particle* p : particles)
