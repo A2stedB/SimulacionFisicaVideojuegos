@@ -1,3 +1,9 @@
+### 21-11-2026
+Que es una escena? La escena es "algo" donde agrupas los datos para diferenciar de otros, pueden ser los mismos tipos de datos, pero con diferentes informaciones?
+
+
+
+
 ### 20-11-2026
 Particula con masa y adelante, sin mas complicacion xD
 Por ejemplo, el la vida de la particula no forma parte de la simulacion como tal, es algo que nosotros lo decimos desde fuera, al igual que la forma de renderizarlo.

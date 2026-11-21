@@ -2,56 +2,7 @@
 #include <foundation/PxVec3.h>
 #include <iostream>
 #include <cmath>
-#include "raylib.h"
-
-//template<typename Type>
-//struct Vector3D_Trait
-//{
-//
-//    Type operator*(const float scalar)
-//    {
-//        return Type{ this->x * scalar,this->y * scalar,this->z * scalar };
-//    }
-//
-//    Type operator+(const Type& b)
-//    {
-//        return Type{ this->x + b.x, this->y + b.y, this->z + b.z };
-//    }
-//
-//    Type operator-(const Type& b)
-//    {
-//        return Type{ this->x - b.x, this->y - b.y, this->z - b.z };
-//    }
-//
-//    Type& operator+=(const Type& b)
-//    {
-//        this->x += b.x;
-//        this->y += b.y;
-//        this->z += b.z;
-//        return *this;
-//    }
-//
-//    Type operator/(float scalar) const
-//    {
-//        return Type{ this->x / scalar,this->y / scalar,this->z / scalar };
-//    }
-//
-//
-//    float module() const
-//    {
-//        return std::sqrtf(this->x * this->x + this->y * this->y + this->z * this->z);
-//    }
-//
-//    Type normalize() const
-//    {
-//        return *this / module();
-//    }
-//
-//    operator physx::PxVec3()
-//    {
-//        return physx::PxVec3{ this->x, this->y, this->z };
-//    }
-//};
+//#include "raylib.h"
 
 struct Vector3D
 {
@@ -131,10 +82,10 @@ public:
     }
 
 
-    operator Vector3()
-    {
-        return { x,y,z };
-    }
+    //operator Vector3()
+    //{
+    //    return { x,y,z };
+    //}
 
 public:
     float x, y, z;
@@ -168,46 +119,51 @@ inline std::ostream& operator<<(std::ostream& out, const Vector3D vec)
     return out;
 }
 
-struct Velocity;
-struct Acceleration;
-struct Position;
-struct Force;
+using Position = Vector3D;
+using Velocity = Vector3D;
+using Acceleration = Vector3D;
+using Force = Vector3D;
+//struct Velocity;
+//struct Acceleration;
+//struct Position;
+//struct Force;
 
-struct Position : public Vector3D
-{
-    using Vector3D::Vector3D;
-    using Vector3D::operator=;
-    //Position& operator=(const Vector3D& other) = delete;
-    //Position(const Vector3D& other) = delete;
-};
 
-//using Velocity = Vector<3, Tag_Velocity>;
-
-struct Velocity : public Vector3D
-{
-    using Vector3D::Vector3D;
-    using Vector3D::operator=;
-    using Vector3D::operator-;
-
-    //Velocity& operator=(const Vector3D& other) = delete;
-    //Velocity& operator-(const Acceleration& other) = delete;
-};
-
-//using Acceleration = Vector<3, Tag_Acceleration>;
-
-struct Acceleration : public Vector3D
-{
-    using Vector3D::Vector3D;
-    using Vector3D::operator=;
-    //Acceleration& operator=(const Vector3D& other) = delete;
-};
-
-struct Force : public Vector3D 
-{
-    using Vector3D::Vector3D;
-    using Vector3D::operator=;
-    //Acceleration& operator=(const Vector3D& other) = delete;
-};
-
-Position operator+(const Position& lhs, const Position& rhs) = delete;
-Velocity operator+(const Velocity& lhs, const Acceleration& rhs) = delete;
+//struct Position : public Vector3D
+//{
+//    using Vector3D::Vector3D;
+//    using Vector3D::operator=;
+//    //Position& operator=(const Vector3D& other) = delete;
+//    //Position(const Vector3D& other) = delete;
+//};
+//
+////using Velocity = Vector<3, Tag_Velocity>;
+//
+//struct Velocity : public Vector3D
+//{
+//    using Vector3D::Vector3D;
+//    using Vector3D::operator=;
+//    using Vector3D::operator-;
+//
+//    //Velocity& operator=(const Vector3D& other) = delete;
+//    //Velocity& operator-(const Acceleration& other) = delete;
+//};
+//
+////using Acceleration = Vector<3, Tag_Acceleration>;
+//
+//struct Acceleration : public Vector3D
+//{
+//    using Vector3D::Vector3D;
+//    using Vector3D::operator=;
+//    //Acceleration& operator=(const Vector3D& other) = delete;
+//};
+//
+//struct Force : public Vector3D 
+//{
+//    using Vector3D::Vector3D;
+//    using Vector3D::operator=;
+//    //Acceleration& operator=(const Vector3D& other) = delete;
+//};
+//
+//Position operator+(const Position& lhs, const Position& rhs) = delete;
+//Velocity operator+(const Velocity& lhs, const Acceleration& rhs) = delete;

@@ -7,7 +7,6 @@ namespace sim
 	void Particle_Integrate_Euler(Pointer<Particle> particle, double dt);
 	void Particle_Integrate_SympleticEuler(Pointer<Particle> particle, double dt);
 	void Particle_Integrate_Verlet(Pointer<Particle> particle, double dt);
-
 }
 
 sim::Particle::Particle(Position position, Velocity velocity, Acceleration acceleration):
@@ -15,13 +14,13 @@ sim::Particle::Particle(Position position, Velocity velocity, Acceleration accel
 {
 }
 
-sim::Particle::Particle(ParticleData data):
+sim::Particle::Particle(Data data):
 	position(data.position),velocity(data.velocity),acceleration(data.acceleration)
 {
 
 }
 
-sim::ParticleWithMass::ParticleWithMass(ParticleWithMassData data):
+sim::ParticleWithMass::ParticleWithMass(Data data):
 	particle(Particle(data.particle_data)),mass(data.mass)
 {
 

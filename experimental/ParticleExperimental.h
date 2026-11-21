@@ -9,14 +9,15 @@ namespace sim
 {
     struct Particle
     {
-        struct ParticleData
+        struct Data
         {
             Position position{};
             Velocity velocity{};
             Acceleration acceleration{};
         };
+        Particle() = default;
         Particle(Position position, Velocity velocity = Velocity(), Acceleration acceleration = Acceleration());
-        Particle(ParticleData data);
+        Particle(Data data);
 
         Position position{};
         Velocity velocity{};
@@ -26,22 +27,26 @@ namespace sim
 
     struct ParticleWithMass 
     {
-        struct ParticleWithMassData
+        struct Data
         {
-            Particle::ParticleData particle_data{};
+            Particle::Data particle_data{};
             float mass = 1; // Para no tener un NaN
         };
 
-        ParticleWithMass(ParticleWithMassData data);
+
+        ParticleWithMass() = default;
+        ParticleWithMass(Data data);
 
         Particle particle;
         float mass;
     };
-
-    using Projectile = ParticleWithMass;
 }
 
 namespace sim
 {
     void Particle_Integrate(Pointer<Particle> particle, double dt, IntegrateType integration_type);
 }
+
+using Projectile = sim::ParticleWithMass;
+
+Projectile create_projectile(sim::ParticleWithMass::Data data);
